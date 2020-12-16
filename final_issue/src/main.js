@@ -1,6 +1,6 @@
 class WordQuiz {
-  constructor(rootEl) {
-    this.rootEl = rootEl
+  constructor(rootElement) {
+    this.rootElement = rootElement
     this.statusValues = {
       ready: 0,
       playing: 1,
@@ -95,33 +95,33 @@ class WordQuiz {
 
   createEl(tagName, text, attributes) {
     let attrs = attributes || {}
-    const el = document.createElement(tagName)
-    if (text) el.innerText = text
+    const element = document.createElement(tagName)
+    if (text) element.innerText = text
     if (attrs.classList) {
       attrs.classList.forEach((className) => {
-        el.classList.add(className)
+        element.classList.add(className)
       })
     }
     const attrNames = ['id', 'href', 'value', 'type', 'name', 'checked']
     attrNames.forEach((name)=> {
-      if (attrs[name]) el[name] = attrs[name]
+      if (attrs[name]) element[name] = attrs[name]
     })
 
-    return el
+    return element
   }
 
   updateView(callback) {
-    let contentEl
+    let contentElement
     if (this.isReadyStatus()) {
-      contentEl = this.createStartView()
+      contentElement = this.createStartView()
     } else if (this.isPlayingStatus()) {
-      contentEl = this.createQuetionView()
+      contentElement = this.createQuetionView()
     } else if (this.isDoneStatus()) {
-      contentEl = this.createResultsView()
+      contentElement = this.createResultsView()
     }
 
-    this.rootEl.innerText = ''
-    this.rootEl.appendChild(contentEl)
+    this.rootElement.innerText = ''
+    this.rootElement.appendChild(contentElement)
 
     if (typeof callback === 'function') {
       callback()
@@ -150,25 +150,25 @@ class WordQuiz {
 
   createQuetionView() {
     const fragment = document.createDocumentFragment();
-    const rootEl = this.createEl('div', '', {classList: ['question']})
+    const rootElement = this.createEl('div', '', {classList: ['question']})
     const currentQuestion = this.getCurrentQuestion()
-    const wordEl = this.createEl('p', currentQuestion.word)
-    const choicesEl = this.createEl('div')
+    const wordElement = this.createEl('p', currentQuestion.word)
+    const choicesElement = this.createEl('div')
     currentQuestion.choices.forEach((choice, index) => {
-      const labelEl = this.createEl('label', '')
-      const choiceEl = this.createEl('input', '', {type: 'radio', name: 'choice', value: choice, checked: index === 0})
-      labelEl.appendChild(choiceEl)
-      labelEl.appendChild(document.createTextNode(choice))
-      choicesEl.appendChild(labelEl)
+      const labelElement = this.createEl('label', '')
+      const choiceElement = this.createEl('input', '', {type: 'radio', name: 'choice', value: choice, checked: index === 0})
+      labelElement.appendChild(choiceElement)
+      labelElement.appendChild(document.createTextNode(choice))
+      choicesElement.appendChild(labelElement)
     })
-    rootEl.appendChild(wordEl)
-    rootEl.appendChild(choicesEl)
+    rootElement.appendChild(wordElement)
+    rootElement.appendChild(choicesElement)
 
     const nextBtnEl = this.createEl('button', '回答する', {classList: ['nextBtn']})
     nextBtnEl.addEventListener('click', () => this.nextStepView())
 
-    rootEl.appendChild(nextBtnEl)
-    fragment.appendChild(rootEl)
+    rootElement.appendChild(nextBtnEl)
+    fragment.appendChild(rootElement)
 
     return fragment
   }
@@ -203,27 +203,27 @@ class WordQuiz {
   }
 
   rendertimeLimitView() {
-    let secEl = this.rootEl.querySelector('.sec')
-    if (!secEl) {
-      secEl = this.createEl('div', null, {classList: ['sec']})
+    let secElement = this.rootElement.querySelector('.sec')
+    if (!secElement) {
+      secElement = this.createEl('div', null, {classList: ['sec']})
     }
-    secEl.innerText = ''
-    secEl.appendChild(this.createEl('p', `残り回答時間:${this.currentGameStatus.timeLimit}秒`))
-    this.rootEl.appendChild(secEl)
+    secElement.innerText = ''
+    secElement.appendChild(this.createEl('p', `残り回答時間:${this.currentGameStatus.timeLimit}秒`))
+    this.rootElement.appendChild(secElement)
   }
 
   createResultsView() {
     const fragment = document.createDocumentFragment();
-    const rootEl = this.createEl('div', '', {classList: ['results']})
-    const scoreEl = this.createEl('p', `正解率${this.currentGameStatus.score}%`)
-    const backBtnEl = this.createEl('button', '開始画面に戻る', {classList: ['backBtn']})
-    backBtnEl.addEventListener('click', () => {
+    const rootElement = this.createEl('div', '', {classList: ['results']})
+    const scoreElement = this.createEl('p', `正解率${this.currentGameStatus.score}%`)
+    const backBtnElement = this.createEl('button', '開始画面に戻る', {classList: ['backBtn']})
+    backBtnElement.addEventListener('click', () => {
       this.resetGame()
       this.updateView()
     })
-    rootEl.appendChild(scoreEl)
-    rootEl.appendChild(backBtnEl)
-    fragment.appendChild(rootEl)
+    rootElement.appendChild(scoreElement)
+    rootElement.appendChild(backBtnElement)
+    fragment.appendChild(rootElement)
 
     return fragment
   }
