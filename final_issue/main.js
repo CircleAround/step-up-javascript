@@ -12,7 +12,7 @@ class WordQuiz {
   async init() {
     try {
       this.resetGame();
-      const response = await fetch(`quiz.json`).catch(err => console.log(err));
+      const response = await fetch(`quiz.json`);
       this.quizData = await response.json();
       this.updateView();
     } catch (e) {
