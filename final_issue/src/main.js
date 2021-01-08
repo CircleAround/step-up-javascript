@@ -97,7 +97,7 @@ class WordQuiz {
     if (this.currentGameStatus.timeLimit === 0) {
       this.renderNextStep()
     } else {
-      this.rendertimeLimitView()        
+      this.renderTimeLimitStr()        
     }
   }
 
@@ -171,7 +171,7 @@ class WordQuiz {
           ${answerGroup.join('\n')}
         </div>
         <button class="nextBtn">回答する</button>
-        <div class="sec">${this.timeLimitView()}</div>
+        <p class="sec">${this.timeLimitStr()}</p>
       </div>
     `
     return template
@@ -188,17 +188,15 @@ class WordQuiz {
     return template
   }
 
-  timeLimitView() {
-    return `
-      <p>残り回答時間:${this.escape(this.currentGameStatus.timeLimit.toString())}秒</p>
-    `
+  timeLimitStr() {
+    return `残り回答時間:${this.escape(this.currentGameStatus.timeLimit.toString())}秒`
   }
 
-  rendertimeLimitView() {
+  renderTimeLimitStr() {
     let secElm = document.querySelector('.sec')
     if (!secElm) return
 
-    secElm.innerHTML = this.timeLimitView()
+    secElm.innerText = this.timeLimitStr()
   }
 
   handleListener() {
