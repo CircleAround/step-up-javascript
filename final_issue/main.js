@@ -12,9 +12,9 @@ class WordQuiz {
   async init() {
     try {
       this.resetGame();
-      const response = await fetch(`quiz.json`);
+      const response = await fetch('quiz.json');
       this.quizData = await response.json();
-      this.updateView();
+      this.updateHtml();
     } catch (e) {
       this.rootElm.innerText = '問題の読み込みに失敗しました';
       console.error(e);
@@ -25,7 +25,7 @@ class WordQuiz {
     this.status = this.statusValues.playing;
     this.currentGameStatus.step = 1;
     this.currentGameStatus.timeLimit = 10;
-    this.updateView(() => {
+    this.updateHtml(() => {
       this.currentGameStatus.intervalKey = setInterval(() => this.handleTimeLimit(), 1000);
     });
   }
@@ -76,7 +76,7 @@ class WordQuiz {
 
   renderNextStep() {
     if(this.isPlaying()) {
-      const checkedElm = document.querySelector('input[name="choice"]:checked');
+      const checkedElm = this.rootElm.querySelector('input[name="choice"]:checked');
       this.addResult(checkedElm ? checkedElm.value : '');
     }
 
@@ -88,7 +88,7 @@ class WordQuiz {
     }
 
     this.nextStep();
-    this.updateView(callback);
+    this.updateHtml(callback);
   }
 
   handleTimeLimit() {
@@ -114,32 +114,32 @@ class WordQuiz {
     this.currentGameStatus.score = Math.floor((correctQuestionNum / this.currentGameStatus.results.length) * 100);
   }
 
-  updateView(callback) {
-    let view = this.generateCurrentView();
+  updateHtml(callback) {
+    let html = this.generateCurrentHtml();
     
-    this.rootElm.innerHTML = view;
+    this.rootElm.innerHTML = html;
     this.handleListener();
     if (typeof callback === 'function') {
       callback();
     }
   }
 
-  generateCurrentView() {
+  generateCurrentHtml() {
     switch (this.status) {
     case this.statusValues.ready:
-      return this.createStartView();
+      return this.createStartHtml();
     case this.statusValues.playing:
-      return this.createQuetionView();
+      return this.createQuetionHtml();
     case this.statusValues.done:
-      return this.createResultsView();
+      return this.createResultsHtml();
     }
   }
 
-  createStartView() { 
+  createStartHtml() { 
     const levelsStr = Object.keys(this.quizData);
     this.currentGameStatus.level = levelsStr[0];
     const optionsStr = levelsStr.map((level, index) => {
-      return `<option value="${this.escape(level)}" name="level">レベル${index + 1}</option>`;
+      return `<option value="${level}" name="level">レベル${index + 1}</option>`;
     });
 
     const template = `
@@ -154,18 +154,18 @@ class WordQuiz {
     return template;
   }
 
-  createQuetionView() {
+  createQuetionHtml() {
     const currentQuestion = this.getCurrentQuestion();
     const answerGroup = currentQuestion.choices.map((choice) => {
       return `<label>
-                <input type="radio" name="choice" value="${this.escape(choice)}" />
-                ${this.escape(choice)}
+                <input type="radio" name="choice" value="${choice}" />
+                ${choice}
               </label>`;
     });
     let template = `
       <div class="question">
         <p class="alertMessage"></p>
-        <p>${this.escape(currentQuestion.word)}</p>
+        <p>${currentQuestion.word}</p>
         <div>
           ${answerGroup.join('\n')}
         </div>
@@ -177,7 +177,7 @@ class WordQuiz {
     return template;
   }
 
-  createResultsView() {
+  createResultsHtml() {
     const template = `
       <div class="results">
         <p>正解率${this.currentGameStatus.score}%</p>
@@ -189,11 +189,11 @@ class WordQuiz {
   }
 
   timeLimitStr() {
-    return `残り回答時間:${this.escape(this.currentGameStatus.timeLimit.toString())}秒`;
+    return `残り回答時間:${this.currentGameStatus.timeLimit.toString()}秒`;
   }
 
   renderTimeLimitStr() {
-    let secElm = document.querySelector('.sec');
+    let secElm = this.rootElm.querySelector('.sec');
     if (!secElm) return;
 
     secElm.innerText = this.timeLimitStr();
@@ -215,40 +215,32 @@ class WordQuiz {
   }
 
   onChangeLevel() {
-    const selectorElm = document.querySelector('.levelSelector');
+    const selectorElm = this.rootElm.querySelector('.levelSelector');
     selectorElm.addEventListener('change', (event) => {
       this.currentGameStatus.level = event.target.value;
     });
   }
 
   onClickStartBtn() {
-    const startBtnElm = document.querySelector('.startBtn');
+    const startBtnElm = this.rootElm.querySelector('.startBtn');
     startBtnElm.addEventListener('click', () => {
       this.startGame();
     });
   }
 
   onClickNextBtn() {
-    const nextBtnElm = document.querySelector('.nextBtn');
+    const nextBtnElm = this.rootElm.querySelector('.nextBtn');
     nextBtnElm.addEventListener('click', () => {
       this.renderNextStep();
     });
   }
 
   onClickResetBtn() {
-    const resetBtnElm = document.querySelector('.resetBtn');
+    const resetBtnElm = this.rootElm.querySelector('.resetBtn');
     resetBtnElm.addEventListener('click', () => {
       this.resetGame();
-      this.updateView();
+      this.updateHtml();
     });
-  }
-
-  escape(string){
-    return string.replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#x27');
   }
 }
 
