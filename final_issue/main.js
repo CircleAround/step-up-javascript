@@ -63,10 +63,10 @@ class WordQuiz {
   }
 
   nextStep() {
+    this.resetIntervalKey();
     if (this.isLastStep()) {
       this.currentGameStatus.step = null;
       this.status = this.statusValues.done;
-      this.resetIntervalKey();
       this.calcScore();
     } else {
       this.currentGameStatus.step++;
@@ -101,9 +101,7 @@ class WordQuiz {
   }
 
   resetIntervalKey() {
-    if (this.currentGameStatus.intervalKey) {
-      clearInterval(this.currentGameStatus.intervalKey);
-    }
+    this.currentGameStatus.intervalKey = clearInterval(this.currentGameStatus.intervalKey);
   }
 
   calcScore() {
@@ -115,23 +113,24 @@ class WordQuiz {
   }
 
   updateHtml(callback) {
-    let html = this.generateCurrentHtml();
-    
-    this.rootElm.innerHTML = html;
-    this.handleListener();
-    if (typeof callback === 'function') {
-      callback();
-    }
-  }
-
-  generateCurrentHtml() {
     switch (this.status) {
     case this.statusValues.ready:
-      return this.createStartHtml();
+      this.rootElm.innerHTML = this.createStartHtml();
+      this.onChangeLevel();
+      this.onClickStartBtn();
+      break;
     case this.statusValues.playing:
-      return this.createQuetionHtml();
+      this.rootElm.innerHTML = this.createQuetionHtml();
+      this.onClickNextBtn();
+      break;
     case this.statusValues.done:
-      return this.createResultsHtml();
+      this.rootElm.innerHTML = this.createResultsHtml();
+      this.onClickResetBtn();
+      break;
+    }
+
+    if (typeof callback === 'function') {
+      callback();
     }
   }
 
@@ -197,21 +196,6 @@ class WordQuiz {
     if (!secElm) return;
 
     secElm.innerText = this.timeLimitStr();
-  }
-
-  handleListener() {
-    switch (this.status) {
-    case this.statusValues.ready:
-      this.onChangeLevel();
-      this.onClickStartBtn();
-      break;
-    case this.statusValues.playing:
-      this.onClickNextBtn();
-      break;
-    case this.statusValues.done:
-      this.onClickResetBtn();
-      break;
-    }
   }
 
   onChangeLevel() {
