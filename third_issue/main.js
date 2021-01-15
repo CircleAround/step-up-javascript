@@ -3,12 +3,12 @@ class PhotoViewer {
     this.rootElm = rootElm;
     this.images = images;
     this.currentIndex = 0;
-    this.updateView();
+    this.updateHtml();
     this.handleListener();
   }
 
 
-  updateView() {
+  updateHtml() {
     this.renderHtml();
     this.setTimer();
   }
@@ -24,7 +24,7 @@ class PhotoViewer {
     return `
       <p>${imageIndex}枚目</p>
       <div class="currentImage">
-        <img src="${this.this.images[this.currentIndex]}" />
+        <img src="${this.images[this.currentIndex]}" />
       </div>
     `;
   }
@@ -36,7 +36,7 @@ class PhotoViewer {
     
     this.intervalKey = setInterval(() => {
       this.next();
-      this.renderView();
+      this.renderHtml();
       this.setTimer();
     }, (5000));
   }
@@ -68,7 +68,7 @@ class PhotoViewer {
     const nextButtonElm = this.rootElm.querySelector('.nextButton');
     nextButtonElm.addEventListener('click', () => {
       this.next();
-      this.updateView();
+      this.updateHtml();
     });
   }
 
@@ -76,7 +76,7 @@ class PhotoViewer {
     const prevButtonElm = this.rootElm.querySelector('.prevButton');
     prevButtonElm.addEventListener('click', () => {
       this.prev();
-      this.updateView();
+      this.updateHtml();
     });
   }
 }
