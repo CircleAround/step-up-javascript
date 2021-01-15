@@ -3,25 +3,22 @@ class PhotoViewer {
     this.rootElm = rootElm;
     this.images = images;
     this.currentIndex = 0;
-    this.init();
-  }
-
-  init() {
     this.updateView();
     this.handleListener();
   }
 
+
   updateView() {
-    this.renderView();
+    this.renderHtml();
     this.setTimer();
   }
 
-  renderView() {
+  renderHtml() {
     const frameElm = this.rootElm.querySelector('.frame');
-    frameElm.innerHTML = this.frameView();
+    frameElm.innerHTML = this.frameHtml();
   }
 
-  frameView() {
+  frameHtml() {
     const imageIndex = (this.currentIndex + 1).toString();
 
     return `
