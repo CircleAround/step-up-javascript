@@ -3,10 +3,14 @@ class PhotoViewer {
     this.rootElm = rootElm;
     this.images = images;
     this.currentIndex = 0;
-    this.updateHtml();
-    this.handleListener();
+    this.init();
   }
 
+  init() {
+    this.updateHtml();
+    this.onClickNextButton();
+    this.onClickPrevButton();
+  }
 
   updateHtml() {
     this.renderHtml();
@@ -57,11 +61,6 @@ class PhotoViewer {
     } else {
       this.currentIndex--;
     }
-  }
-
-  handleListener() {
-    this.onClickNextButton();
-    this.onClickPrevButton();
   }
 
   onClickNextButton() {
