@@ -96,7 +96,7 @@ class WordQuiz {
     if (this.currentGameStatus.timeLimit === 0) {
       this.renderNextStep();
     } else {
-      this.renderTimeLimitStr();
+      this.updateTimeLimitStr();
     }
   }
 
@@ -113,19 +113,17 @@ class WordQuiz {
   }
 
   updateHtml(callback) {
+    this.rootElm.innerHTML = '';
+
     switch (this.status) {
     case this.statusValues.ready:
-      this.rootElm.innerHTML = this.createStartHtml();
-      this.onChangeLevel();
-      this.onClickStartBtn();
+      this.rootElm.appendChild(this.createStartHtml());
       break;
     case this.statusValues.playing:
-      this.rootElm.innerHTML = this.createQuetionHtml();
-      this.onClickNextBtn();
+      this.rootElm.appendChild(this.createQuetionHtml());
       break;
     case this.statusValues.done:
-      this.rootElm.innerHTML = this.createResultsHtml();
-      this.onClickResetBtn();
+      this.rootElm.appendChild(this.createResultsHtml());
       break;
     }
 
@@ -142,15 +140,18 @@ class WordQuiz {
     });
 
     const template = `
-      <div>
-        <select class="levelSelector">
-          ${optionsStr.join('\n')}
-        </select>
-        <button class='startBtn'>スタート</button>
-      </div>
+      <select class="levelSelector">
+        ${optionsStr.join('\n')}
+      </select>
+      <button class='startBtn'>スタート</button>
     `;
 
-    return template;
+    const parent = document.createElement('div');
+    parent.innerHTML = template;
+    this.setChangeLevel(parent);
+    this.setClickStartBtn(parent);
+
+    return parent;
   }
 
   createQuetionHtml() {
@@ -162,65 +163,71 @@ class WordQuiz {
               </label>`;
     });
     let template = `
-      <div class="question">
-        <p class="alertMessage"></p>
-        <p>${currentQuestion.word}</p>
-        <div>
-          ${answerGroup.join('\n')}
-        </div>
-        <button class="nextBtn">回答する</button>
-        <p class="sec">${this.timeLimitStr()}</p>
+      <p class="alertMessage"></p>
+      <p>${currentQuestion.word}</p>
+      <div>
+        ${answerGroup.join('\n')}
       </div>
+      <button class="nextBtn">回答する</button>
+      <p class="sec">${this.timeLimitStr()}</p>
     `;
 
-    return template;
+    const parent = document.createElement('div');
+    parent.className = 'question';
+    parent.innerHTML = template;
+    this.setClickNextBtn(parent);
+
+    return parent;
   }
 
   createResultsHtml() {
     const template = `
-      <div class="results">
-        <p>正解率${this.currentGameStatus.score}%</p>
-        <button class="resetBtn">開始画面に戻る</button>
-      </div>
+      <p>正解率${this.currentGameStatus.score}%</p>
+      <button class="resetBtn">開始画面に戻る</button>
     `;
 
-    return template;
+    const parent = document.createElement('div');
+    parent.className = 'results';
+    parent.innerHTML = template;
+    this.setClickResetBtn(parent);
+
+    return parent;
   }
 
   timeLimitStr() {
-    return `残り回答時間:${this.currentGameStatus.timeLimit.toString()}秒`;
+    return `残り回答時間:${this.currentGameStatus.timeLimit}秒`;
   }
 
-  renderTimeLimitStr() {
+  updateTimeLimitStr() {
     let secElm = this.rootElm.querySelector('.sec');
     if (!secElm) return;
 
     secElm.innerText = this.timeLimitStr();
   }
 
-  onChangeLevel() {
-    const selectorElm = this.rootElm.querySelector('.levelSelector');
+  setChangeLevel(parentElm) {
+    const selectorElm = parentElm.querySelector('.levelSelector');
     selectorElm.addEventListener('change', (event) => {
       this.currentGameStatus.level = event.target.value;
     });
   }
 
-  onClickStartBtn() {
-    const startBtnElm = this.rootElm.querySelector('.startBtn');
+  setClickStartBtn(parentElm) {
+    const startBtnElm = parentElm.querySelector('.startBtn');
     startBtnElm.addEventListener('click', () => {
       this.startGame();
     });
   }
 
-  onClickNextBtn() {
-    const nextBtnElm = this.rootElm.querySelector('.nextBtn');
+  setClickNextBtn(parent) {
+    const nextBtnElm = parent.querySelector('.nextBtn');
     nextBtnElm.addEventListener('click', () => {
       this.renderNextStep();
     });
   }
 
-  onClickResetBtn() {
-    const resetBtnElm = this.rootElm.querySelector('.resetBtn');
+  setClickResetBtn(parent) {
+    const resetBtnElm = parent.querySelector('.resetBtn');
     resetBtnElm.addEventListener('click', () => {
       this.resetGame();
       this.updateHtml();
