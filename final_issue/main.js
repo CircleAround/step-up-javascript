@@ -146,12 +146,20 @@ class WordQuiz {
       <button class='startBtn'>スタート</button>
     `;
 
-    const parent = document.createElement('div');
-    parent.innerHTML = template;
-    this.setChangeLevel(parent);
-    this.setClickStartBtn(parent);
+    const parentElm = document.createElement('div');
+    parentElm.innerHTML = template;
 
-    return parent;
+    const selectorElm = parentElm.querySelector('.levelSelector');
+    selectorElm.addEventListener('change', (event) => {
+      this.currentGameStatus.level = event.target.value;
+    });
+
+    const startBtnElm = parentElm.querySelector('.startBtn');
+    startBtnElm.addEventListener('click', () => {
+      this.startGame();
+    });
+
+    return parentElm;
   }
 
   createQuetionHtml() {
@@ -172,12 +180,16 @@ class WordQuiz {
       <p class="sec">${this.timeLimitStr()}</p>
     `;
 
-    const parent = document.createElement('div');
-    parent.className = 'question';
-    parent.innerHTML = template;
-    this.setClickNextBtn(parent);
+    const parentElm = document.createElement('div');
+    parentElm.className = 'question';
+    parentElm.innerHTML = template;
 
-    return parent;
+    const nextBtnElm = parentElm.querySelector('.nextBtn');
+    nextBtnElm.addEventListener('click', () => {
+      this.renderNextStep();
+    });
+
+    return parentElm;
   }
 
   createResultsHtml() {
@@ -186,12 +198,17 @@ class WordQuiz {
       <button class="resetBtn">開始画面に戻る</button>
     `;
 
-    const parent = document.createElement('div');
-    parent.className = 'results';
-    parent.innerHTML = template;
-    this.setClickResetBtn(parent);
+    const parentElm = document.createElement('div');
+    parentElm.className = 'results';
+    parentElm.innerHTML = template;
 
-    return parent;
+    const resetBtnElm = parentElm.querySelector('.resetBtn');
+    resetBtnElm.addEventListener('click', () => {
+      this.resetGame();
+      this.updateHtml();
+    });
+
+    return parentElm;
   }
 
   timeLimitStr() {
@@ -205,34 +222,6 @@ class WordQuiz {
     secElm.innerText = this.timeLimitStr();
   }
 
-  setChangeLevel(parentElm) {
-    const selectorElm = parentElm.querySelector('.levelSelector');
-    selectorElm.addEventListener('change', (event) => {
-      this.currentGameStatus.level = event.target.value;
-    });
-  }
-
-  setClickStartBtn(parentElm) {
-    const startBtnElm = parentElm.querySelector('.startBtn');
-    startBtnElm.addEventListener('click', () => {
-      this.startGame();
-    });
-  }
-
-  setClickNextBtn(parent) {
-    const nextBtnElm = parent.querySelector('.nextBtn');
-    nextBtnElm.addEventListener('click', () => {
-      this.renderNextStep();
-    });
-  }
-
-  setClickResetBtn(parent) {
-    const resetBtnElm = parent.querySelector('.resetBtn');
-    resetBtnElm.addEventListener('click', () => {
-      this.resetGame();
-      this.updateHtml();
-    });
-  }
 }
 
 new WordQuiz(document.getElementById('app'));
