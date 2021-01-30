@@ -4,25 +4,30 @@ class AreaSelector {
     this.prefectures = [];
     this.cities = [];
     this.prefCode = null;
-    this.prefSelectorElm = rootElm.querySelector('.prefectures');
-    this.citySelectorElm = rootElm.querySelector('.cities');
     this.init();
   }
 
   async init() {
     try {
-      const prefResponse = await fetch('prefectures.json');
-      this.prefectures = await prefResponse.json();
-      this.prefCode = this.prefectures[0].code;
-      const cityResponse = await fetch(`./cities/${this.prefCode}.json`);
-      this.cities = await cityResponse.json();
-      this.updatePrefOptionsHtml();
-      this.updateCityOptionsHtml();
-      this.onChangePref();
+      await this.updatePref();
+      await this.updateCity();
     } catch(e) {
       this.rootElm.innerText = '地域情報の読み込みに失敗しました';
       console.error(e);
     }
+  }
+
+  async updatePref() {
+    const prefResponse = await fetch('prefectures.json');
+    this.prefectures = await prefResponse.json();
+    this.prefCode = this.prefectures[0].code;
+    this.updatePrefOptionsHtml();
+  }
+
+  async updateCity() {
+    const cityResponse = await fetch(`./cities/${this.prefCode}.json`);
+    this.cities = await cityResponse.json();
+    this.updateCityOptionsHtml();
   }
 
   updatePrefOptionsHtml() {
@@ -34,7 +39,12 @@ class AreaSelector {
       `;
     });
     
-    this.prefSelectorElm.innerHTML = optionsStr.join('\n');
+    const prefSelectorElm = this.rootElm.querySelector('.prefectures');
+    prefSelectorElm.innerHTML = optionsStr.join('\n');
+    prefSelectorElm.addEventListener('change', async(event) => {
+      this.prefCode = event.target.value;
+      this.updateCity();
+    });
   }
 
   updateCityOptionsHtml() {
@@ -46,16 +56,8 @@ class AreaSelector {
       `;
     });
     
-    this.citySelectorElm.innerHTML = optionsStr.join('\n');
-  }
-
-  onChangePref() {
-    this.prefSelectorElm.addEventListener('change', async(event) => {
-      this.prefCode = event.target.value;
-      const cityResponse = await fetch(`./cities/${this.prefCode}.json`);
-      this.cities = await cityResponse.json();
-      this.updateCityOptionsHtml();
-    });
+    const citySelectorElm = this.rootElm.querySelector('.cities');
+    citySelectorElm.innerHTML = optionsStr.join('\n');
   }
 }
 
