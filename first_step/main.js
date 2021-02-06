@@ -1,12 +1,12 @@
-function addMessage(parentElm, message) {
-  var now = new Date();
-  var messageElm = document.createElement('div');
-  messageElm.classList = ['message'];
-  messageElm.innerText = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ' ' + message;
-  parentElm.appendChild(messageElm);
-}
-
 function stopWatch(options) {
+  function addMessage(message) {
+    var messageElm = document.createElement('div');
+    var now = new Date();
+    messageElm.innerText = now.getHours() + '時' + now.getMinutes() + '分' + now.getSeconds() + '秒 ' + message;
+    messageElm.classList = ['message'];
+    logElm.appendChild(messageElm);
+  }
+
   options = options || {};
   var color = options.color || 'lightblue';
   var backgroundColor = options.backgroundColor || 'black';
@@ -19,7 +19,7 @@ function stopWatch(options) {
 
   var startButton = document.getElementsByClassName('startButton')[0];
   startButton.addEventListener('click', function(){
-    if (!timer) { 
+    if(timer == null) { 
       var seconds = 0;
       display.innerText = seconds;
   
@@ -28,17 +28,17 @@ function stopWatch(options) {
         display.innerText = seconds;
       }, 1000);
 
-      addMessage(logElm, '開始');
+      addMessage('開始');
     }
   });
 
   var stopButton = document.getElementsByClassName('stopButton')[0];
   stopButton.addEventListener('click', function(){
-    if(timer) {
+    if(timer != null) {
       clearInterval(timer);
       timer = null;
 
-      addMessage(logElm, '終了');
+      addMessage('終了');
     }
   });
 }
