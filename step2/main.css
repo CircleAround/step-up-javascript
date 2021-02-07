@@ -1,0 +1,28 @@
+.title {
+  text-align: center;
+}
+
+#stopWatchPanel {
+  margin: 0 auto;
+  width: 10em;
+}
+
+.display {
+  font-weight: bold;
+  text-align: right;
+  height: 1.5em;
+  margin-bottom: .2em;
+  padding: .5em;
+  color: lightblue;
+  background-color: black;
+}
+
+.actions {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.message {
+  text-align: center;
+  border-bottom: 1px solid lightblue;
+}
