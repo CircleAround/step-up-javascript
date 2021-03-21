@@ -2,7 +2,7 @@
 
 // プリミティブ型 ///////////////////////////////////////////////////////////
 
-// 数値 Number
+// Number 数値
 const typeNum = typeof 3;
 console.log(`typeof 3: ${typeNum}`); // => typeof 3: number
 
@@ -28,7 +28,7 @@ console.log(`typeof null: ${typeNull}`); // => typeof null: object
 
 // オブジェクト型 ///////////////////////////////////////////////////////////
 
-// 日時 Date
+// Date 日時
 const typeDate = typeof new Date();
 console.log(`typeof new Date(): ${typeDate}`); // => typeof new Date(): object
 
@@ -40,7 +40,7 @@ console.log(`typeof new Date(): ${typeDate}`); // => typeof new Date(): object
 let testStr1 = 'Hello';
 const testStr2 = testStr1;
 console.log(testStr1, testStr2); // => Hello Hello
-testStr1 = testStr1.concat('World'); // 新しい文字列オブジェクトである "Hello World" が誕生してtestStr1に代入される。"Hello"はそのまま保持される
+testStr1 = testStr1.concat('World'); // [1]
 
 // 以下の二つは違う値を示している
 console.log(testStr1, testStr2); // => HelloWorld Hello
@@ -49,7 +49,7 @@ console.log(testStr1, testStr2); // => HelloWorld Hello
 const testDate1 = new Date();
 const testDate2 = testDate1;
 console.log(testDate1, testDate2); // => Mon Feb 08 2021 18:05:26 GMT+0900 (日本標準時) Mon Feb 08 2021 18:05:26 GMT+0900 (日本標準時)
-testDate1.setYear(11223); // 新しいオブジェクトは誕生せず、testDate1の内容が直接変更される。
+testDate1.setYear(11223); // [1]
 
 // 以下の二つは同じ値を示している
 console.log(testDate1, testDate2); // => Wed Feb 08 11223 18:05:26 GMT+0900 (日本標準時) Wed Feb 08 11223 18:05:26 GMT+0900 (日本標準時)
