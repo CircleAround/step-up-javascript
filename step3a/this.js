@@ -1,4 +1,4 @@
-/// オブジェクトに関数を設定した場合におけるthis ////////////////////////
+console.log('> オブジェクトに関数を設定した場合におけるthisのサンプル');
 const obj1 = {
   name: 'これはobj1です',
   test: function() {
@@ -13,7 +13,7 @@ obj1.test(); // [4]
 // => {name: "これはobj1です", test: ƒ}
 // => true
 
-/// クラスにおけるthis ////////////////////////
+console.log('> クラスにおけるthisのサンプル');
 class MyClass {
   constructor() {
     this.name = 'これはMyClassです';
@@ -32,8 +32,7 @@ instance1.test(); // [4]
 // => MyClass { name: "これはMyClassです" }
 // => true
 
-/// 関数は代入できます
-
+console.log('> 「呼び出された時」の所有者のサンプル');
 const obj2 = {
   name: 'これはobj2です'
 };
@@ -43,14 +42,13 @@ obj2.test = obj1.test; // obj1の関数の参照をobj2に代入
 obj2.test(); // [1]
 
 
-
-/// apply
+console.log('> applyのサンプル');
 
 obj1.test.apply(obj2); // obj1.testを呼んでいますが、これのthisをobj2に差し替えて実行します
 
 
 // グローバルオブジェクト
-console.log('グローバルオブジェクト');
+console.log('> グローバルオブジェクトのサンプル');
 
 // 何も関数に囲まれていないグローバルスコープのthisはグローバルオブジェクトです
 console.log(this === window); // => true
@@ -78,34 +76,17 @@ const nestedSample = {
 nestedSample.nested();
 
 /////////////
-console.log('コンストラクタ');
-
-function MyClass2() {
-  this.name = 'これはMyClass2です';
-  console.log(this);
-}
-
-MyClass2.prototype.test = function() { 
-  console.log(this === instance2); // => true
-  console.log('test!'); 
-};
-
-const instance2 = new MyClass2();
-instance2.test();
-
-
-/////////////
-console.log('アロー関数');
+console.log('> アロー関数のサンプル');
 
 const objArrow = {
-  name: 'これはアロー関数で書きました',
+  name: 'これはobjArrowです',
   test: function() {
     console.log('testの中です');
     console.log(this);
 
     const arrow = () => {
       console.log('arrowの中です');
-      console.log(this); // => {name: "これはアロー関数で書きました", test: ƒ}
+      console.log(this); // => {name: "これはobjArrowです", test: ƒ}
       console.log(this === objArrow); // => true
     };
 
@@ -120,19 +101,18 @@ const objArrow = {
   }
 };
 
-console.log(objArrow); // [3] => {name: "これはアロー関数で書きました", test: ƒ}
+console.log(objArrow); // [3] => {name: "これはobjArrowです", test: ƒ}
 
 objArrow.test(); // [4] 
 
 
 // アロー関数が無かった頃の書き方
 const legacyObj = {
-  name: 'thisを外のスコープで代入しておきます',
+  name: '通常関数の場合',
   test: function() {
-    const self = this; // この時のthisにアクセスしたいなら変数に入れておきます
-
+    const self = this; // [1] 
     document.body.addEventListener('click', function() {
-      console.log(self.name); // これで適切にアクセスできます
+      console.log(self.name); // [2]
     });
   }
 };
@@ -141,7 +121,7 @@ legacyObj.test();
 
 // アロー関数によってシンプルに書けるようになりました
 const arrowObj = {
-  name: 'アロー関数ならシンプル',
+  name: 'アロー関数の場合',
   test: function() {
     document.body.addEventListener('click', () => {
       console.log(this.name); // これで適切にアクセスできます
@@ -150,3 +130,19 @@ const arrowObj = {
 };
 
 arrowObj.test();
+
+/////////////
+console.log('> コンストラクタのサンプル');
+
+function MyClass2() {
+  this.name = 'これはMyClass2です';
+  console.log(this);
+}
+
+MyClass2.prototype.test = function() { 
+  console.log(this === instance2); // => true
+  console.log('test!'); 
+};
+
+const instance2 = new MyClass2(); // [1]
+instance2.test();
