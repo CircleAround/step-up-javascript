@@ -36,21 +36,20 @@ getJson('./user.json', function(err, user) { // [1]
 
     console.log("エントリ一覧を取得しました");
     console.log(entries);
-    entries.forEach(function(entry) {
-      getJson(`./entries/${entry.id}/comments.json`, function(err, comments){ // [3]
-        if(err) { 
-          return alert(`コメント一覧が取得できません: ${err.message}`);
-        }
+    const entry = entries[0];
+    getJson(`./entries/${entry.id}/comments.json`, function(err, comments){ // [3]
+      if(err) { 
+        return alert(`コメント一覧が取得できません: ${err.message}`);
+      }
 
-        console.log(`エントリとコメントを取得:${entry.name}`);
-        comments.forEach(function(comment){
-          console.log(`${comment.id}: ${comment.comment}`);
-        });
+      console.log(`エントリとコメントを取得:${entry.name}`);
+      comments.forEach(function(comment){
+        console.log(`${comment.id}: ${comment.comment}`);
       });
     });
   });
 
-  console.log("エントリのJSONを取得した後に呼ばれそうに思いますが、取得する前に到達します");
+  console.log("ユーザ情報取得直後に呼び出されます"); // [4]
 });
 
 
