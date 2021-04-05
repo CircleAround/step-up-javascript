@@ -3,19 +3,14 @@ fetch('./user.json').then(function(res){ // [1]
   return res.json(); // [2]
 }).then(function(user){
   console.log(user); // [3]
-  return user.name;
-}).then(function(name){
-  console.log(name); // [4]  
 }).catch(function(err){
-  console.error(err); // [5]
+  console.error(err); // [4]
 });
 
 console.log('fetchJson');
 function fetchJson(url) {
   return fetch(url).then(function(res){
     return res.json();
-  }).then(function(data){
-    return data;
   });
 }
 

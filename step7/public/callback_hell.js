@@ -1,17 +1,17 @@
 function getJson(url, callback) {
   const xhr = new XMLHttpRequest();
   xhr.open("GET", url, true);
-  xhr.onload = function() {
+  xhr.onload = function() { // [1]
     if (xhr.status === 200) {
-      callback(null, JSON.parse(xhr.responseText));
+      callback(null, JSON.parse(xhr.responseText)); // [2]
     } else {
-      callback(new Error(xhr.statusText));
+      callback(new Error(xhr.statusText)); // [3]
     }
   };
   xhr.onerror = function() {
-    callback(new Error('通信に失敗しました'));
+    callback(new Error('通信に失敗しました')); // [4]
   };
-  xhr.send(null);
+  xhr.send(null); // [5]
 }
 
 console.log("getJsonの動作サンプル");
