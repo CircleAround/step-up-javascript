@@ -1,64 +1,62 @@
-class AreaSelector {
-  constructor(rootElm) {
-    this.rootElm = rootElm;
-    this.prefectures = [];
-    this.cities = [];
-    this.prefCode = null;
-    this.init();
-  }
+const rootElm = document.getElementById('areaSelector')
 
-  async init() {
-    try {
-      await this.updatePref();
-      await this.updateCity();
-    } catch(e) {
-      this.rootElm.innerText = '地域情報の読み込みに失敗しました';
-      console.error(e);
-    }
-  }
-
-  async updatePref() {
-    const prefResponse = await fetch('prefectures.json');
-    this.prefectures = await prefResponse.json();
-    this.prefCode = this.prefectures[0].code;
-    this.updatePrefOptionsHtml();
-  }
-
-  async updateCity() {
-    const cityResponse = await fetch(`./cities/${this.prefCode}.json`);
-    this.cities = await cityResponse.json();
-    this.updateCityOptionsHtml();
-  }
-
-  updatePrefOptionsHtml() {
-    let optionsStr = this.prefectures.map((pref) => {
-      return `
-        <option name="${pref.name}" value="${pref.code}">
-          ${pref.name}
-        </option>
-      `;
-    });
-    
-    const prefSelectorElm = this.rootElm.querySelector('.prefectures');
-    prefSelectorElm.innerHTML = optionsStr.join('\n');
-    prefSelectorElm.addEventListener('change', async(event) => {
-      this.prefCode = event.target.value;
-      this.updateCity();
-    });
-  }
-
-  updateCityOptionsHtml() {
-    let optionsStr = this.cities.map((city) => {
-      return `
-        <option name="${city.name}" value="${city.code}">
-          ${city.name}
-        </option>
-      `;
-    });
-    
-    const citySelectorElm = this.rootElm.querySelector('.cities');
-    citySelectorElm.innerHTML = optionsStr.join('\n');
-  }
+async function init() {
+  await updatePref();
+  await updateCity();
 }
 
-new AreaSelector(document.getElementById('areaSelector'));
+async function getPrefs() {
+  const prefResponse = await fetch('./prefectures.json');
+  return await prefResponse.json();
+}
+
+async function getCities(cityCode) {
+  const cityResponse = await fetch(`./cities/${cityCode}.json`);
+  return await cityResponse.json();
+}
+
+async function updatePref() {
+  const prefs = await getPrefs();
+  createPrefOptionsHtml(prefs);
+}
+
+async function updateCity() {
+  const prefSelectorElm = rootElm.querySelector('.prefectures');
+  const cities = await getCities(prefSelectorElm.value);
+  createCityOptionsHtml(cities);
+}
+
+async function createPrefOptionsHtml(prefs) {
+  const optionStrs = [];
+  for(let i = 0; prefs.length > i; i++) {
+    let pref = prefs[i];
+    optionStrs.push(`
+      <option name="${pref.name}" value="${pref.code}">
+        ${pref.name}
+      </option>
+    `);
+  }
+
+  const prefSelectorElm = rootElm.querySelector('.prefectures');
+  prefSelectorElm.innerHTML = optionStrs.join('\n');
+  prefSelectorElm.addEventListener('change', async(event) => {
+    updateCity(event.target.value);
+  });
+}
+
+function createCityOptionsHtml(cities) {
+  const optionStrs = [];
+  for(let i = 0; cities.length > i; i++) {
+    let city = cities[i];
+    optionStrs.push(`
+      <option name="${city.name}" value="${city.code}">
+        ${city.name}
+      </option>
+    `);
+  }
+    
+  const citySelectorElm = rootElm.querySelector('.cities');
+  citySelectorElm.innerHTML = optionStrs.join('\n');
+}
+
+init();
