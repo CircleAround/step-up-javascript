@@ -23,15 +23,15 @@ class WordQuiz {
 
   startGame() {
     this.status = this.statusValues.playing;
-    this.currentGameStatus.step = 1;
-    this.currentGameStatus.timeLimit = 10;
+    this.gameStatus.step = 1;
+    this.gameStatus.timeLimit = 10;
     this.updateHtml(() => {
-      this.currentGameStatus.intervalKey = setInterval(() => this.handleTimeLimit(), 1000);
+      this.gameStatus.intervalKey = setInterval(() => this.handleTimeLimit(), 1000);
     });
   }
 
   resetGame() {
-    this.currentGameStatus = {
+    this.gameStatus = {
       level: null,
       step: null,
       timeLimit: 0,
@@ -43,19 +43,19 @@ class WordQuiz {
   }
 
   addResult(answer) {
-    this.currentGameStatus.results.push({
+    this.gameStatus.results.push({
       question: this.getCurrentQuestion(),
       selectedAnswer: answer
     });
   }
 
   getCurrentQuestion() {
-    return this.quizData[this.currentGameStatus.level][`step${this.currentGameStatus.step}`];
+    return this.quizData[this.gameStatus.level][`step${this.gameStatus.step}`];
   }
 
   isLastStep() {
-    const currentQuestions = this.quizData[this.currentGameStatus.level];
-    return this.currentGameStatus.step === Object.keys(currentQuestions).length;
+    const currentQuestions = this.quizData[this.gameStatus.level];
+    return this.gameStatus.step === Object.keys(currentQuestions).length;
   }
 
   isPlaying() {
@@ -65,12 +65,12 @@ class WordQuiz {
   nextStep() {
     this.resetIntervalKey();
     if (this.isLastStep()) {
-      this.currentGameStatus.step = null;
+      this.gameStatus.step = null;
       this.status = this.statusValues.done;
       this.calcScore();
     } else {
-      this.currentGameStatus.step++;
-      this.currentGameStatus.timeLimit = 10;
+      this.gameStatus.step++;
+      this.gameStatus.timeLimit = 10;
     }
   }
 
@@ -83,7 +83,7 @@ class WordQuiz {
     let callback;
     if (!this.isLastStep()) {
       callback = () => {
-        this.currentGameStatus.intervalKey = setInterval(() => this.handleTimeLimit(), 1000);
+        this.gameStatus.intervalKey = setInterval(() => this.handleTimeLimit(), 1000);
       };
     }
 
@@ -92,8 +92,8 @@ class WordQuiz {
   }
 
   handleTimeLimit() {
-    this.currentGameStatus.timeLimit--;
-    if (this.currentGameStatus.timeLimit === 0) {
+    this.gameStatus.timeLimit--;
+    if (this.gameStatus.timeLimit === 0) {
       this.renderNextStep();
     } else {
       this.updateTimeLimitStr();
@@ -101,15 +101,15 @@ class WordQuiz {
   }
 
   resetIntervalKey() {
-    this.currentGameStatus.intervalKey = clearInterval(this.currentGameStatus.intervalKey);
+    this.gameStatus.intervalKey = clearInterval(this.gameStatus.intervalKey);
   }
 
   calcScore() {
-    const correctQuestionNum = this.currentGameStatus.results.filter((result)=>{
+    const correctQuestionNum = this.gameStatus.results.filter((result)=>{
       return result.selectedAnswer === result.question.answer;
     }).length;
 
-    this.currentGameStatus.score = Math.floor((correctQuestionNum / this.currentGameStatus.results.length) * 100);
+    this.gameStatus.score = Math.floor((correctQuestionNum / this.gameStatus.results.length) * 100);
   }
 
   updateHtml(callback) {
@@ -134,7 +134,7 @@ class WordQuiz {
 
   createStartHtml() { 
     const levelsStr = Object.keys(this.quizData);
-    this.currentGameStatus.level = levelsStr[0];
+    this.gameStatus.level = levelsStr[0];
     const optionsStr = levelsStr.map((level, index) => {
       return `<option value="${level}" name="level">レベル${index + 1}</option>`;
     });
@@ -151,7 +151,7 @@ class WordQuiz {
 
     const selectorElm = parentElm.querySelector('.levelSelector');
     selectorElm.addEventListener('change', (event) => {
-      this.currentGameStatus.level = event.target.value;
+      this.gameStatus.level = event.target.value;
     });
 
     const startBtnElm = parentElm.querySelector('.startBtn');
@@ -194,7 +194,7 @@ class WordQuiz {
 
   createResultsHtml() {
     const template = `
-      <p>正解率${this.currentGameStatus.score}%</p>
+      <p>正解率${this.gameStatus.score}%</p>
       <button class="resetBtn">開始画面に戻る</button>
     `;
 
@@ -212,7 +212,7 @@ class WordQuiz {
   }
 
   timeLimitStr() {
-    return `残り回答時間:${this.currentGameStatus.timeLimit}秒`;
+    return `残り回答時間:${this.gameStatus.timeLimit}秒`;
   }
 
   updateTimeLimitStr() {
