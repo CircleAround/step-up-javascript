@@ -25,9 +25,8 @@ class WordQuiz {
     this.status = this.statusValues.playing;
     this.gameStatus.step = 1;
     this.gameStatus.timeLimit = 10;
-    this.updateHtml(() => {
-      this.gameStatus.intervalKey = setInterval(() => this.handleTimeLimit(), 1000);
-    });
+    this.updateHtml();
+    this.gameStatus.intervalKey = setInterval(() => this.handleTimeLimit(), 1000);
   }
 
   resetGame() {
@@ -62,39 +61,33 @@ class WordQuiz {
     return this.status === this.statusValues.playing;
   }
 
-  nextStep() {
+  initDataByStep() {
     this.resetIntervalKey();
     if (this.isLastStep()) {
       this.gameStatus.step = null;
       this.status = this.statusValues.done;
       this.calcScore();
     } else {
+      this.gameStatus.intervalKey = setInterval(() => this.handleTimeLimit(), 1000);
       this.gameStatus.step++;
       this.gameStatus.timeLimit = 10;
     }
   }
 
-  renderNextStep() {
+  nextStep() {
     if(this.isPlaying()) {
       const checkedElm = this.rootElm.querySelector('input[name="choice"]:checked');
       this.addResult(checkedElm ? checkedElm.value : '');
     }
 
-    let callback;
-    if (!this.isLastStep()) {
-      callback = () => {
-        this.gameStatus.intervalKey = setInterval(() => this.handleTimeLimit(), 1000);
-      };
-    }
-
-    this.nextStep();
-    this.updateHtml(callback);
+    this.initDataByStep();
+    this.updateHtml();
   }
 
   handleTimeLimit() {
     this.gameStatus.timeLimit--;
     if (this.gameStatus.timeLimit === 0) {
-      this.renderNextStep();
+      this.nextStep();
     } else {
       this.updateTimeLimitStr();
     }
@@ -112,7 +105,7 @@ class WordQuiz {
     this.gameStatus.score = Math.floor((correctQuestionNum / this.gameStatus.results.length) * 100);
   }
 
-  updateHtml(callback) {
+  updateHtml() {
     this.rootElm.innerHTML = '';
 
     switch (this.status) {
@@ -125,10 +118,6 @@ class WordQuiz {
     case this.statusValues.done:
       this.rootElm.appendChild(this.createResultsHtml());
       break;
-    }
-
-    if (typeof callback === 'function') {
-      callback();
     }
   }
 
@@ -186,7 +175,7 @@ class WordQuiz {
 
     const nextBtnElm = parentElm.querySelector('.nextBtn');
     nextBtnElm.addEventListener('click', () => {
-      this.renderNextStep();
+      this.nextStep();
     });
 
     return parentElm;
