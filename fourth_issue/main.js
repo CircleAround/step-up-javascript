@@ -67,8 +67,6 @@ function createCityOptionsHtml(cities) {
       
   const citySelectorElm = rootElm.querySelector('.cities');
   citySelectorElm.innerHTML = optionStrs.join('\n');
-
-;
 }
 
 initAreaSelector();
