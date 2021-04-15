@@ -10,15 +10,19 @@ class WordQuiz {
   }
 
   async init() {
+    this.resetGame();
+    await this.fetchQuizData();
+    await this.updateHtml();
+  }
+
+  async fetchQuizData() {
     try {
-      this.resetGame();
       const response = await fetch('quiz.json');
       this.quizData = await response.json();
-      this.updateHtml();
     } catch (e) {
       this.rootElm.innerText = '問題の読み込みに失敗しました';
-      console.error(e);
-    }
+      console.log(e);
+    } 
   }
 
   startGame() {
