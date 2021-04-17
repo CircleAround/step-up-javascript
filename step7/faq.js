@@ -2,7 +2,7 @@ function wait(sec) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(`${sec}秒たちました`);
-      // もしも失敗する時には以下のように呼ぶと失敗を知らせられます
+      // もしも失敗する時には以下のように呼ぶと失敗を知らせられる
       //reject(new Error('エラーです'));
     }, sec * 1000);
   });
@@ -18,7 +18,7 @@ wait(3).then((msg) => {
 
 async function wait3sec() {
   const msg = await wait(3);
-  // 3秒後に下記が実行されます
+  // 3秒後に下記が実行される
   console.log(msg); // => 3秒たちました
 }
 

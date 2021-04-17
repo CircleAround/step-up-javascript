@@ -50,6 +50,8 @@
     }).then((data) => {
       const messageElm = document.getElementById('message'); // [3] 〜
       messageElm.innerHTML = data.message;
+      // 例えば以下のように例外が発生してもcatch関数で捕まえられる
+      // throw new Error("テストエラー");
       console.log('終了'); // 〜 [3]
     }).catch((err) => { // [4]
       console.log(`displayMessagePromiseの処理中にエラーが発生しました: ${err.message}`);
@@ -68,7 +70,7 @@
       const data = await response.json();
       const messageElm = document.getElementById('message');
       messageElm.innerHTML = data.message;
-      console.log('終了'); // [1]
+      console.log('終了');
     } catch (err) {
       console.log(`displayMessageの処理中にエラーが発生しました: ${err.message}`);
     }
