@@ -136,8 +136,6 @@ const App = {
     resetGame: function () {
       this.level = null
       this.step = null
-      this.timeLimit = 0
-      this.intervalKey = null
       this.results = []
       this.status = this.statusValues.ready;
     }
