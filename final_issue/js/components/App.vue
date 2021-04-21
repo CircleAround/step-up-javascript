@@ -1,3 +1,14 @@
+<template>
+  <component v-bind:is="currentComponent"
+             v-bind:quizData='quizData'
+             v-bind:question='currentQuestion'
+             v-bind:results='results'
+             v-on:game-start="gameStart"
+             v-on:push-answer="pushAnswer"
+             v-on:reset-game="resetGame"
+  ></component>
+</template>
+
 <script>
   import LevelSelect from './LevelSelect';
   import Answer from './Answer';
@@ -74,14 +85,8 @@
       'level-select': LevelSelect,
       'answer': Answer,
       'result': Result
-    },
-    template: `<component v-bind:is="currentComponent"
-              v-bind:quizData='quizData'
-              v-bind:question='currentQuestion'
-              v-bind:results='results'
-              v-on:game-start="gameStart"
-              v-on:push-answer="pushAnswer"
-              v-on:reset-game="resetGame"
-             ></component>`
+    }
   }
 </script>
+
+<style></style>

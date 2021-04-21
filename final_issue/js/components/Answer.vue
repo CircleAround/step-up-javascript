@@ -1,3 +1,20 @@
+<template>
+  <div>
+    <p class="alert Message"></p>
+    <p>{{ question.word }}</p>
+    <div>
+        <span v-for="choice in question.choices" v-bind:key="choice">
+          <label>
+            <input v-bind:value="choice" v-model="selectedChoice" type="radio">
+            {{ choice }}
+          </label>
+        </span>
+    </div>
+    <button v-on:click="nextStep" class="nextBtn">回答する</button>
+    <p class="sec">残り回答時間{{ leftTime }}秒</p>
+  </div>
+</template>
+
 <script>
   export default {
     props: ["question"],
@@ -22,22 +39,8 @@
       startInterval: function () {
         return this.intervalKey = setInterval(() => this.handleTimeLimit(), 1000)
       }
-    },
-    template: `
-    <div>
-      <p class="alert Message"></p>
-      <p>{{ question.word }}</p>
-      <div>
-        <span v-for="choice in question.choices" v-bind:key="choice">
-          <label>
-            <input v-bind:value="choice" v-model="selectedChoice" type="radio">
-            {{ choice }}
-          </label>
-        </span>
-      </div>
-      <button v-on:click="nextStep" class="nextBtn">回答する</button>
-      <p class="sec">残り回答時間{{ leftTime }}秒</p>
-    </div>
-  `
+    }
   }
 </script>
+
+<style></style>
