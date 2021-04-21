@@ -122,7 +122,7 @@ const App = {
       this.level = value
     },
     pushAnswer: function (value) {
-      this.results.push({ question: this.currentQuestion.word, selectedAnswer: value })
+      this.results.push({ question: this.currentQuestion, selectedAnswer: value })
       if (this.isLastStep()) {
         this.step = null;
         this.status = this.statusValues.done;
