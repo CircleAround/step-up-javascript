@@ -49,7 +49,7 @@ const Answer = {
       if (this.leftTime === 0) { this.nextStep() }
     },
     startInterval: function () {
-      return this.intervalKey = setInterval(() => this.handleTimeLimit(), 500)
+      return this.intervalKey = setInterval(() => this.handleTimeLimit(), 1000)
     }
   },
   template: `
