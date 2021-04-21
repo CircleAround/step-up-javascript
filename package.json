@@ -1,0 +1,38 @@
+{
+  "name": "step-up-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:dev": "webpack --mode development --watch",
+    "start": "webpack --mode development --watch & webpack-dev-server",
+    "dev": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CircleAround/step-up-javascript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CircleAround/step-up-javascript/issues"
+  },
+  "homepage": "https://github.com/CircleAround/step-up-javascript#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.13.17",
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@babel/plugin-transform-runtime": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "babel-loader": "^8.2.2",
+    "http-server": "^0.12.3",
+    "terser-webpack-plugin": "^5.1.1",
+    "vue-loader": "^15.9.6",
+    "vue-template-compiler": "^2.6.12",
+    "webpack": "^5.34.0",
+    "webpack-cli": "^4.6.0"
+  }
+}
