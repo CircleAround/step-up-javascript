@@ -1,7 +1,6 @@
 class WordQuiz {
   constructor(rootElm) {
     this.rootElm = rootElm;
-    this.init();
   }
 
   async fetchQuizData() {
@@ -15,12 +14,6 @@ class WordQuiz {
   }
 
   async init() {
-    // 画面のステータス
-    this.statusValues = {
-      ready: 0,  // ゲーム開始可能
-      playing: 1, // ゲームプレイ中
-      done: 2 // ゲーム終了
-    };
     // ゲームのステータス
     this.gameStatus = {
       level: null, // 選択されたレベル
@@ -30,13 +23,8 @@ class WordQuiz {
       intervalKey: null,
     };
     await this.fetchQuizData();
-    this.changeStatus('ready');
-    this.updateHtml();
-  }
 
-  changeStatus(status) {
-    // ゲーム開始前のステータス設定
-    this.status = this.statusValues[status];
+    this.updateStartView();
   }
 
   isLastStep() {
@@ -64,7 +52,8 @@ class WordQuiz {
   }
 
   resetIntervalKey() {
-    this.gameStatus.intervalKey = clearInterval(this.gameStatus.intervalKey);
+    clearInterval(this.gameStatus.intervalKey);
+    this.gameStatus.intervalKey = null;
   }
 
   addResult() {
@@ -77,7 +66,7 @@ class WordQuiz {
       selectedAnswer: answer
     });
 
-    console.log(`解答結果: ${answer}`)
+    console.log(`回答結果: ${answer}`)
   }
 
   nextStep() {
@@ -85,19 +74,18 @@ class WordQuiz {
     this.addResult();
 
     if (this.isLastStep()) {
-      this.changeStatus('done');
+      this.updateResultView();
     } else {
       this.gameStatus.step++;
+      this.updateQuestionView();
     }
-
-    this.updateHtml();
   }
 
   calcScore() {
     let correctNum = 0
     const results = this.gameStatus.results;
 
-    for(let i = 0; results.length > i; i++) {
+    for (let i = 0; results.length > i; i++) {
       const result = results[i];
       const selected = result.selectedAnswer;
       const correct = result.question.answer;
@@ -108,39 +96,23 @@ class WordQuiz {
     return Math.floor((correctNum / results.length) * 100);
   }
 
-  updateHtml() {
-    this.rootElm.innerHTML = '';
-
-    switch (this.status) {
-    case this.statusValues.ready:
-      this.rootElm.appendChild(this.createStartHtml());
-      break;
-    case this.statusValues.playing:
-      this.rootElm.appendChild(this.createQuetionHtml());
-      break;
-    case this.statusValues.done:
-      this.rootElm.appendChild(this.createResultsHtml());
-      break;
-    }
-  }
-
-  createStartHtml() {
-    const levelsStr = Object.keys(this.quizData);
-    this.gameStatus.level = levelsStr[0];
-    const optionsStr = [];
-    for(let i = 0; levelsStr.length > i; i++) {
-      optionsStr.push(`<option value="${levelsStr[i]}" name="level">レベル${i + 1}</option>`);
+  updateStartView() {
+    const levelStrs = Object.keys(this.quizData);
+    this.gameStatus.level = levelStrs[0];
+    const optionStrs = [];
+    for (let i = 0; levelStrs.length > i; i++) {
+      optionStrs.push(`<option value="${levelStrs[i]}" name="level">レベル${i + 1}</option>`);
     }
 
-    const template = `
+    const html = `
       <select class="levelSelector">
-        ${optionsStr.join('\n')}
+        ${optionStrs.join('\n')}
       </select>
       <button class='startBtn'>スタート</button>
     `;
 
     const parentElm = document.createElement('div');
-    parentElm.innerHTML = template;
+    parentElm.innerHTML = html;
 
     const selectorElm = parentElm.querySelector('.levelSelector');
     selectorElm.addEventListener('change', (event) => {
@@ -149,28 +121,28 @@ class WordQuiz {
 
     const startBtnElm = parentElm.querySelector('.startBtn');
     startBtnElm.addEventListener('click', () => {
-      this.changeStatus('playing');
-      this.updateHtml();
+      this.updateQuestionView();
     });
 
-    return parentElm;
+    this.rootElm.innerHTML = '';
+    this.rootElm.appendChild(parentElm);
   }
 
-  createQuetionHtml() {
+  updateQuestionView() {
     this.gameStatus.timeLimit = 10;
     console.log(`選択中のレベル:${this.gameStatus.level}`);
     const currentQuestion = this.quizData[this.gameStatus.level][`step${this.gameStatus.step}`];
     const answerGroup = [];
     const choices = currentQuestion.choices;
 
-    for(let i = 0; choices.length > i; i++) {
+    for (let i = 0; choices.length > i; i++) {
       answerGroup.push(`<label>
                           <input type="radio" name="choice" value="${choices[i]}" />
                           ${choices[i]}
                         </label>`);
     }
 
-    const template = `
+    const html = `
       <p class="alertMessage"></p>
       <p>${currentQuestion.word}</p>
       <div>
@@ -182,7 +154,7 @@ class WordQuiz {
 
     const parentElm = document.createElement('div');
     parentElm.className = 'question';
-    parentElm.innerHTML = template;
+    parentElm.innerHTML = html;
 
     const nextBtnElm = parentElm.querySelector('.nextBtn');
     nextBtnElm.addEventListener('click', () => {
@@ -190,7 +162,9 @@ class WordQuiz {
     });
 
     this.setTimer();
-    return parentElm;
+
+    this.rootElm.innerHTML = '';
+    this.rootElm.appendChild(parentElm);
   }
 
   renderTimeLimitStr() {
@@ -198,10 +172,10 @@ class WordQuiz {
     secElm.innerText = `残り回答時間:${this.gameStatus.timeLimit}秒`;
   }
 
-  createResultsHtml() {
+  updateResultView() {
     const score = this.calcScore();
 
-    const template = `
+    const html = `
       <h2>集計結果</h2>
       <p>正解率: ${score}%</p>
       <button class="resetBtn">開始画面に戻る</button>
@@ -209,18 +183,17 @@ class WordQuiz {
 
     const parentElm = document.createElement('div');
     parentElm.className = 'results';
-    parentElm.innerHTML = template;
+    parentElm.innerHTML = html;
 
     const resetBtnElm = parentElm.querySelector('.resetBtn');
     resetBtnElm.addEventListener('click', () => {
-      this.changeStatus('ready');
       this.resetGame();
-      this.updateHtml();
+      this.updateStartView();
     });
 
-    return parentElm;
+    this.rootElm.innerHTML = '';
+    this.rootElm.appendChild(parentElm);
   }
-  
 }
 
-new WordQuiz(document.getElementById('app'));
+new WordQuiz(document.getElementById('app')).init();
