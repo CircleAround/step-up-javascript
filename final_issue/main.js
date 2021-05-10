@@ -166,7 +166,7 @@ class WordQuiz {
   }
 
   renderTimeLimitStr() {
-    let secElm = this.rootElm.querySelector('.sec');
+    const secElm = this.rootElm.querySelector('.sec');
     secElm.innerText = `残り回答時間:${this.gameStatus.timeLimit}秒`;
   }
 
