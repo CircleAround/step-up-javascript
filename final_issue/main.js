@@ -85,12 +85,13 @@ class WordQuiz {
     let correctNum = 0
     const results = this.gameStatus.results;
 
-    for (let i = 0; results.length > i; i++) {
-      const result = results[i];
+    for (const result of results) {
       const selected = result.selectedAnswer;
       const correct = result.question.answer;
 
-      correctNum += selected === correct ? 1 : 0;
+      if (selected === correct) {
+        correctNum++;
+      }
     }
 
     return Math.floor((correctNum / results.length) * 100);
@@ -134,10 +135,10 @@ class WordQuiz {
     const answerGroup = [];
     const choices = currentQuestion.choices;
 
-    for (let i = 0; choices.length > i; i++) {
+    for (const choice of choices) {
       answerGroup.push(`<label>
-                          <input type="radio" name="choice" value="${choices[i]}" />
-                          ${choices[i]}
+                          <input type="radio" name="choice" value="${choice}" />
+                          ${choice}
                         </label>`);
     }
 
