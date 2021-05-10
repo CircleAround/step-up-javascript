@@ -24,7 +24,7 @@ class WordQuiz {
     };
     await this.fetchQuizData();
 
-    this.updateStartView();
+    this.displayStartView();
   }
 
   isLastStep() {
@@ -59,10 +59,10 @@ class WordQuiz {
   addResult() {
     const checkedElm = this.rootElm.querySelector('input[name="choice"]:checked');
     const answer = checkedElm ? checkedElm.value : '';
-    const currentQuestions = this.quizData[this.gameStatus.level][`step${this.gameStatus.step}`];
+    const currentQuestion = this.quizData[this.gameStatus.level][`step${this.gameStatus.step}`];
 
     this.gameStatus.results.push({
-      question: currentQuestions,
+      question: currentQuestion,
       selectedAnswer: answer
     });
 
@@ -74,10 +74,10 @@ class WordQuiz {
     this.addResult();
 
     if (this.isLastStep()) {
-      this.updateResultView();
+      this.displayResultView();
     } else {
       this.gameStatus.step++;
-      this.updateQuestionView();
+      this.displayQuestionView();
     }
   }
 
@@ -96,7 +96,7 @@ class WordQuiz {
     return Math.floor((correctNum / results.length) * 100);
   }
 
-  updateStartView() {
+  displayStartView() {
     const levelStrs = Object.keys(this.quizData);
     this.gameStatus.level = levelStrs[0];
     const optionStrs = [];
@@ -121,14 +121,13 @@ class WordQuiz {
 
     const startBtnElm = parentElm.querySelector('.startBtn');
     startBtnElm.addEventListener('click', () => {
-      this.updateQuestionView();
+      this.displayQuestionView();
     });
 
-    this.rootElm.innerHTML = '';
-    this.rootElm.appendChild(parentElm);
+    this.replaceView(parentElm);
   }
 
-  updateQuestionView() {
+  displayQuestionView() {
     this.gameStatus.timeLimit = 10;
     console.log(`選択中のレベル:${this.gameStatus.level}`);
     const currentQuestion = this.quizData[this.gameStatus.level][`step${this.gameStatus.step}`];
@@ -163,8 +162,7 @@ class WordQuiz {
 
     this.setTimer();
 
-    this.rootElm.innerHTML = '';
-    this.rootElm.appendChild(parentElm);
+    this.replaceView(parentElm);
   }
 
   renderTimeLimitStr() {
@@ -172,7 +170,7 @@ class WordQuiz {
     secElm.innerText = `残り回答時間:${this.gameStatus.timeLimit}秒`;
   }
 
-  updateResultView() {
+  displayResultView() {
     const score = this.calcScore();
 
     const html = `
@@ -188,11 +186,15 @@ class WordQuiz {
     const resetBtnElm = parentElm.querySelector('.resetBtn');
     resetBtnElm.addEventListener('click', () => {
       this.resetGame();
-      this.updateStartView();
+      this.displayStartView();
     });
 
+    this.replaceView(parentElm);
+  }
+
+  replaceView(elm) {
     this.rootElm.innerHTML = '';
-    this.rootElm.appendChild(parentElm);
+    this.rootElm.appendChild(elm);
   }
 }
 
