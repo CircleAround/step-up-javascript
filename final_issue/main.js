@@ -18,7 +18,7 @@ class WordQuiz {
     this.gameStatus = {
       level: null, // 選択されたレベル
       step: 1, // 現在表示している問題の番
-      results: [], // プレイヤーの回答結果
+      results: [], // プレイヤーの解答結果
       timeLimit: 0, // 問題毎の制限時間
       intervalKey: null,
     };
@@ -66,7 +66,7 @@ class WordQuiz {
       selectedAnswer: answer
     });
 
-    console.log(`回答結果: ${answer}`)
+    console.log(`解答結果: ${answer}`)
   }
 
   nextStep() {
@@ -147,8 +147,8 @@ class WordQuiz {
       <div>
         ${answerGroup.join('\n')}
       </div>
-      <button class="nextBtn">回答する</button>
-      <p class="sec">残り回答時間:${this.gameStatus.timeLimit}秒</p>
+      <button class="nextBtn">解答する</button>
+      <p class="sec">残り解答時間:${this.gameStatus.timeLimit}秒</p>
     `;
 
     const parentElm = document.createElement('div');
@@ -167,7 +167,7 @@ class WordQuiz {
 
   renderTimeLimitStr() {
     const secElm = this.rootElm.querySelector('.sec');
-    secElm.innerText = `残り回答時間:${this.gameStatus.timeLimit}秒`;
+    secElm.innerText = `残り解答時間:${this.gameStatus.timeLimit}秒`;
   }
 
   displayResultView() {
