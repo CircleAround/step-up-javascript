@@ -1,4 +1,4 @@
-function stopWatch({color, backgroundColor} = {}) {
+function stopWatch(options = {}) {
   function addMessage(message) {
     const messageElm = document.createElement('div');
     const now = new Date();
@@ -7,8 +7,11 @@ function stopWatch({color, backgroundColor} = {}) {
     logElm.appendChild(messageElm);
   }
 
+  let {color, backgroundColor} = options;
+
   color = color || 'lightblue';
   backgroundColor = backgroundColor || 'black';
+
   const display = document.getElementsByClassName('display')[0];
   display.style.color = color;
   display.style.backgroundColor = backgroundColor;
@@ -18,11 +21,11 @@ function stopWatch({color, backgroundColor} = {}) {
 
   const startButton = document.getElementsByClassName('startButton')[0];
   startButton.addEventListener('click', () => {
-    if(timer == null) { 
+    if (timer == null) {
       let seconds = 0;
       display.innerText = seconds;
-  
-      timer = setInterval(function(){
+
+      timer = setInterval(function() {
         seconds++;
         display.innerText = seconds;
       }, 1000);
@@ -33,7 +36,7 @@ function stopWatch({color, backgroundColor} = {}) {
 
   const stopButton = document.getElementsByClassName('stopButton')[0];
   stopButton.addEventListener('click', () => {
-    if(timer != null) {
+    if (timer != null) {
       clearInterval(timer);
       timer = null;
 
@@ -42,8 +45,8 @@ function stopWatch({color, backgroundColor} = {}) {
   });
 }
 
-const options = { 
-  color: 'limegreen', 
+const options = {
+  color: 'limegreen',
   backgroundColor: '#333'
 };
 stopWatch(options);
