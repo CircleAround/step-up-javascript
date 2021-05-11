@@ -3,7 +3,6 @@ class PhotoViewer {
     this.rootElm = rootElm;
     this.images = images;
     this.currentIndex = 0;
-    this.init();
   }
 
   init() {
@@ -35,6 +34,14 @@ class PhotoViewer {
         <img src="${this.images[this.currentIndex]}" />
       </div>
     `;
+
+    const imagesElm = this.rootElm.querySelector('.images');
+    imagesElm.innerHTML = '';
+    const imageStrs = [];
+    for(const image of this.images) {
+      imageStrs.push(`<a href="${image}" target="_blank">${image}</a>`);
+    }
+    imagesElm.innerHTML = imageStrs.join('<br>');
   }
 
   setTimer() {
@@ -68,4 +75,4 @@ class PhotoViewer {
 }
 
 const images = ['https://fakeimg.pl/250x150/81DAF5', 'https://fakeimg.pl/250x150/F781F3', 'https://fakeimg.pl/250x150/81F7D8'];
-new PhotoViewer(document.getElementById('photoViewer'), images);
+new PhotoViewer(document.getElementById('photoViewer'), images).init();
