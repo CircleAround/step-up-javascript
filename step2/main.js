@@ -1,11 +1,11 @@
 function stopWatch(options = {}) {
-  function addMessage(message) {
+  const addMessage = (message) => {
     const messageElm = document.createElement('div');
     const now = new Date();
     messageElm.innerText = `${now.getHours()}時${now.getMinutes()}分${now.getSeconds()}秒 ${message}`;
     messageElm.classList = ['message'];
     logElm.appendChild(messageElm);
-  }
+  };
 
   let {color, backgroundColor} = options;
 
