@@ -55,5 +55,5 @@ const options = {
   color: 'limegreen',
   backgroundColor: '#333'
 };
-const stopWatch = new StopWatch(options);
-stopWatch.init();
+const stopWatch = new StopWatch(options); // --- [7]
+stopWatch.init(); // --- [8]
