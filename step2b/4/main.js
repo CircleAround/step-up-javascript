@@ -9,13 +9,11 @@ class PhotoViewer {
     const nextButtonElm = this.rootElm.querySelector('.nextButton');
     nextButtonElm.addEventListener('click', () => {
       this.next();
-      this.updatePhoto();
     });
 
     const prevButtonElm = this.rootElm.querySelector('.prevButton');
     prevButtonElm.addEventListener('click', () => {
       this.prev();
-      this.updatePhoto();
     });
 
     this.updatePhoto();
@@ -23,21 +21,23 @@ class PhotoViewer {
 
   updatePhoto() {
     const frameElm = this.rootElm.querySelector('.frame');
-    const imageIndex = this.currentIndex + 1;
+    const image = this.images[this.currentIndex];
     frameElm.innerHTML = `
-      <p>${imageIndex}枚目</p>
-        <img src="${this.images[this.currentIndex]}" />
+      <div class="currentImage">
+        <img src="${image}" />
       </div>
     `;
   }
 
   next() {
     const lastIndex = this.images.length - 1;
-    if (lastIndex === this.currentIndex) {
+    if (this.currentIndex === lastIndex) {
       this.currentIndex = 0;
     } else {
       this.currentIndex++;
     }
+
+    this.updatePhoto();
   }
 
   prev() {
@@ -47,6 +47,8 @@ class PhotoViewer {
     } else {
       this.currentIndex--;
     }
+
+    this.updatePhoto();
   }
 }
 

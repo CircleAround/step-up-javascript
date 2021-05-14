@@ -6,22 +6,20 @@ class PhotoViewer {
   }
 
   init() {
-    const nextButtonElm = this.rootElm.querySelector('.nextButton');
+    const nextButtonElm = this.rootElm.querySelector('.nextButton'); // --- [1〜]
     nextButtonElm.addEventListener('click', () => {
       this.next();
-      this.updatePhoto();
-    });
+    }); // --- [〜1]
 
-    const prevButtonElm = this.rootElm.querySelector('.prevButton');
+    const prevButtonElm = this.rootElm.querySelector('.prevButton'); // --- [2〜]
     prevButtonElm.addEventListener('click', () => {
       this.prev();
-      this.updatePhoto();
-    });
+    }); // --- [〜2]
 
-    this.updatePhoto();
+    this.updatePhoto(); // --- [3]
   }
 
-  updatePhoto() {
+  updatePhoto() { // --- [4〜]
     const frameElm = this.rootElm.querySelector('.frame');
     const image = this.images[this.currentIndex];
     frameElm.innerHTML = `
@@ -29,14 +27,16 @@ class PhotoViewer {
         <img src="${image}" />
       </div>
     `;
-  }
+  } // --- [〜4]
 
   next() {
-    this.currentIndex++;
+    this.currentIndex++; // --- [5]
+    this.updatePhoto();
   }
 
   prev() {
-    this.currentIndex--;
+    this.currentIndex--;// --- [6]
+    this.updatePhoto();
   }
 }
 

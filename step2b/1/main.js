@@ -1,4 +1,3 @@
-
 class PhotoViewer {
   init() {
     const rootElm = document.getElementById('photoViewer'); // --- [1]
@@ -14,4 +13,5 @@ class PhotoViewer {
     // --- [〜4]
   }
 }
+
 new PhotoViewer().init(); // --- [5]

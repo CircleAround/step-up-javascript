@@ -9,13 +9,11 @@ class PhotoViewer {
     const nextButtonElm = this.rootElm.querySelector('.nextButton');
     nextButtonElm.addEventListener('click', () => {
       this.next();
-      this.updatePhoto();
     });
 
     const prevButtonElm = this.rootElm.querySelector('.prevButton');
     prevButtonElm.addEventListener('click', () => {
       this.prev();
-      this.updatePhoto();
     });
 
     this.updatePhoto();
@@ -23,34 +21,34 @@ class PhotoViewer {
 
   updatePhoto() {
     const frameElm = this.rootElm.querySelector('.frame');
-    const imageIndex = this.currentIndex + 1;
+    const imageIndex = this.currentIndex + 1; // --- [1]
     frameElm.innerHTML = `
-      <p>${imageIndex}枚目</p>
+      <div>
+        <p>${imageIndex}枚目</p>
         <img src="${this.images[this.currentIndex]}" />
       </div>
     `;
-
-    this.setTimer();
+    this.setTimer(); // --- [2]
   }
 
   setTimer() {
     if (this.intervalKey) {
-      clearInterval(this.intervalKey);
+      clearInterval(this.intervalKey); // --- [3]
     }
-
-    this.intervalKey = setInterval(() => {
+    this.intervalKey = setInterval(() => { // --- [4]
       this.next();
-      this.updatePhoto();
-    }, (3000));
+    }, 3000);
   }
 
   next() {
     const lastIndex = this.images.length - 1;
-    if (lastIndex === this.currentIndex) {
+    if (this.currentIndex === lastIndex) {
       this.currentIndex = 0;
     } else {
       this.currentIndex++;
     }
+
+    this.updatePhoto();
   }
 
   prev() {
@@ -60,6 +58,8 @@ class PhotoViewer {
     } else {
       this.currentIndex--;
     }
+
+    this.updatePhoto();
   }
 }
 

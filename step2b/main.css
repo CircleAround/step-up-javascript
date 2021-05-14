@@ -11,3 +11,9 @@
 .currentImage {
   text-align: center;
 }
+
+.images {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
