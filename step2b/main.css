@@ -17,3 +17,8 @@
   padding: 0;
   text-align: center;
 }
+
+.frame img {
+  width: 250px;
+  height: 150px;
+}
