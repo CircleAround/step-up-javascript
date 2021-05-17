@@ -66,7 +66,7 @@ class WordQuiz {
       selectedAnswer: answer
     });
 
-    console.log(`解答結果: ${answer}`)
+    console.log(`解答結果: ${answer}`);
   }
 
   nextStep() {
@@ -82,7 +82,7 @@ class WordQuiz {
   }
 
   calcScore() {
-    let correctNum = 0
+    let correctNum = 0;
     const results = this.gameStatus.results;
 
     for (const result of results) {
