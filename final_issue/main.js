@@ -148,7 +148,9 @@ class WordQuiz {
       <div>
         ${answerGroup.join('\n')}
       </div>
-      <button class="nextBtn">解答する</button>
+      <div class="actions">
+        <button class="nextBtn">解答する</button>
+      </div>
       <p class="sec">残り解答時間:${this.gameStatus.timeLimit}秒</p>
     `;
 
