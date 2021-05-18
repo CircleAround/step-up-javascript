@@ -19,11 +19,11 @@ class WordQuiz {
   } // --- [〜3]
 
   displayStartView() { // --- [4]
-    const labelStrs = Object.keys(this.quizData); // --- [5]
+    const levelStrs = Object.keys(this.quizData); // --- [5]
 
     const optionStrs = [];
-    for (let i = 0; labelStrs.length > i; i++) {
-      optionStrs.push(`<option value="${labelStrs[i]}" name="level">レベル${i + 1}</option>`);
+    for (let i = 0; levelStrs.length > i; i++) {
+      optionStrs.push(`<option value="${levelStrs[i]}" name="level">レベル${i + 1}</option>`);
     }
 
     const html = `

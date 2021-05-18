@@ -1,6 +1,21 @@
 class WordQuiz {
   constructor(rootElm) {
     this.rootElm = rootElm;
+
+    // ゲームのステータス
+    this.gameStatus = {
+      level: null, // 選択されたレベル
+      step: 1, // 現在表示している問題の番
+      results: [], // プレイヤーの解答結果
+      timeLimit: 0, // 問題毎の制限時間
+      intervalKey: null,
+    };
+  }
+
+  async init() {
+    await this.fetchQuizData();
+
+    this.displayStartView();
   }
 
   async fetchQuizData() {
@@ -11,20 +26,6 @@ class WordQuiz {
       this.rootElm.innerText = '問題の読み込みに失敗しました';
       console.error(e);
     }
-  }
-
-  async init() {
-    // ゲームのステータス
-    this.gameStatus = {
-      level: null, // 選択されたレベル
-      step: 1, // 現在表示している問題の番
-      results: [], // プレイヤーの解答結果
-      timeLimit: 0, // 問題毎の制限時間
-      intervalKey: null,
-    };
-    await this.fetchQuizData();
-
-    this.displayStartView();
   }
 
   isLastStep() {
@@ -132,21 +133,20 @@ class WordQuiz {
     this.gameStatus.timeLimit = 10;
     console.log(`選択中のレベル:${this.gameStatus.level}`);
     const currentQuestion = this.quizData[this.gameStatus.level][`step${this.gameStatus.step}`];
-    const answerGroup = [];
+    const choiceStrs = [];
     const choices = currentQuestion.choices;
 
     for (const choice of choices) {
-      answerGroup.push(`<label>
+      choiceStrs.push(`<label>
                           <input type="radio" name="choice" value="${choice}" />
                           ${choice}
                         </label>`);
     }
 
     const html = `
-      <p class="alertMessage"></p>
       <p>${currentQuestion.word}</p>
       <div>
-        ${answerGroup.join('\n')}
+        ${choiceStrs.join('\n')}
       </div>
       <div class="actions">
         <button class="nextBtn">解答する</button>
