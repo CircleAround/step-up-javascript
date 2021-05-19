@@ -81,11 +81,8 @@ class WordQuiz {
 
     this.gameStatus.intervalKey = setInterval(() => {
       this.gameStatus.timeLimit--;
-      if (this.gameStatus.timeLimit === 0) {
-        this.nextStep();
-      } else {
-        this.renderTimeLimitStr();
-      }
+      // console.log(`解答時間は残り${this.gameStatus.timeLimit}秒です`); // --- [1] 削除
+      this.renderTimeLimitStr(); // --- [2]
     }, 1000);
   }
 
@@ -148,7 +145,7 @@ class WordQuiz {
       <div class="actions">
         <button class="nextBtn">解答する</button>
       </div>
-      <p class="sec">残り解答時間:${this.gameStatus.timeLimit}秒</p>
+      <p class="sec">残り解答時間:${this.gameStatus.timeLimit}秒</p> // ---[3]
     `;
 
     const parentElm = document.createElement('div');
@@ -163,7 +160,7 @@ class WordQuiz {
     this.replaceView(parentElm);
   }
 
-  renderTimeLimitStr() {
+  renderTimeLimitStr() { // --- [4]
     const secElm = this.rootElm.querySelector('.sec');
     secElm.innerText = `残り解答時間:${this.gameStatus.timeLimit}秒`;
   }

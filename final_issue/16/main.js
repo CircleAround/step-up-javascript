@@ -81,11 +81,12 @@ class WordQuiz {
 
     this.gameStatus.intervalKey = setInterval(() => {
       this.gameStatus.timeLimit--;
-      if (this.gameStatus.timeLimit === 0) {
+      // this.renderTimeLimitStr(); // --- [1] 削除
+      if (this.gameStatus.timeLimit === 0) { // ---[2〜]
         this.nextStep();
       } else {
         this.renderTimeLimitStr();
-      }
+      } // ---[〜2]
     }, 1000);
   }
 

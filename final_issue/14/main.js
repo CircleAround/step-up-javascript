@@ -28,7 +28,7 @@ class WordQuiz {
   }
 
   nextStep() {
-    this.clearTimer();
+    this.clearTimer(); // --- [1]
     this.addResult();
 
     if (this.isLastStep()) {
@@ -72,20 +72,16 @@ class WordQuiz {
     this.gameStatus.level = null; // 選択されたレベル
     this.gameStatus.step = 1; // 現在表示している設問の番号
     this.gameStatus.results = []; // プレイヤーの解答結果
-    this.gameStatus.timeLimit = 0; // 問題毎の制限時間
-    this.gameStatus.intervalKey = null; // setIntervalのキー
+    this.gameStatus.timeLimit = 0; // 問題毎の制限時間 // ---[2]
+    this.gameStatus.intervalKey = null; // setIntervalのキー // ---[3]
   }
 
-  setTimer() {
+  setTimer() { // ---[4]
     this.gameStatus.timeLimit = 10;
 
     this.gameStatus.intervalKey = setInterval(() => {
       this.gameStatus.timeLimit--;
-      if (this.gameStatus.timeLimit === 0) {
-        this.nextStep();
-      } else {
-        this.renderTimeLimitStr();
-      }
+      console.log(`解答時間は残り${this.gameStatus.timeLimit}秒です`);
     }, 1000);
   }
 
@@ -127,7 +123,7 @@ class WordQuiz {
 
   displayQuestionView() {
     console.log(`選択中のレベル:${this.gameStatus.level}`);
-    this.setTimer();
+    this.setTimer(); // --- [5]
 
     const stepKey = `step${this.gameStatus.step}`;
     const currentQuestion = this.quizData[this.gameStatus.level][stepKey];
@@ -148,7 +144,6 @@ class WordQuiz {
       <div class="actions">
         <button class="nextBtn">解答する</button>
       </div>
-      <p class="sec">残り解答時間:${this.gameStatus.timeLimit}秒</p>
     `;
 
     const parentElm = document.createElement('div');
@@ -161,11 +156,6 @@ class WordQuiz {
     });
 
     this.replaceView(parentElm);
-  }
-
-  renderTimeLimitStr() {
-    const secElm = this.rootElm.querySelector('.sec');
-    secElm.innerText = `残り解答時間:${this.gameStatus.timeLimit}秒`;
   }
 
   displayResultView() {
