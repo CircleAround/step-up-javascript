@@ -1,0 +1,68 @@
+{
+  "level1": {
+    "step1": {
+      "word": "get",
+      "choices" : ["取得する", "与える", "追加する"],
+      "answer": "取得する"    
+    },
+    "step2": {
+      "word": "add",
+      "choices" : ["除外する", "追加する", "反映する"],
+      "answer": "追加する"    
+    },
+    "step3": {
+      "word": "remove",
+      "choices" : ["移動する", "整理する", "削除する"],
+      "answer": "削除する"
+    }
+  },
+  "level2": {
+    "step1": {
+      "word": "confirm",
+      "choices" : ["黙認する", "確認する", "移行する"],
+      "answer": "確認する"    
+    },
+    "step2": {
+      "word": "bug",
+      "choices" : ["欠陥", "確認", "正解"],
+      "answer": "欠陥"    
+    },
+    "step3": {
+      "word": "update",
+      "choices" : ["変更する", "更新する", "入れ替える"],
+      "answer": "更新する"    
+    },
+    "step4": {
+      "word": "insert",
+      "choices" : ["差し込む", "取り除く", "動かす"],
+      "answer": "差し込む"    
+    }
+  },
+  "level3": {
+    "step1": {
+      "word": "environment",
+      "choices" : ["場所", "領域", "環境"],
+      "answer": "環境"    
+    },
+    "step2": {
+      "word": "fetch",
+      "choices" : ["読み込む", "除外する", "検証する"],
+      "answer": "読み込む"    
+    },
+    "step3": {
+      "word": "extract",
+      "choices" : ["抜く", "追加する", "移動する"],
+      "answer": "抜く"    
+    },
+    "step4": {
+      "word": "sync",
+      "choices" : ["初期化する", "取り外す", "同期する"],
+      "answer": "同期する"    
+    },
+    "step5": {
+      "word": "require",
+      "choices" : ["必要とする", "不要とする", "拒否する"],
+      "answer": "必要とする"    
+    }
+  }
+}
