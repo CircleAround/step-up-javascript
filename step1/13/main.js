@@ -44,7 +44,6 @@ function stopWatch(options) {
   });
 }
 
-
 var options = { // --- [3〜]
   color: 'limegreen',
   backgroundColor: '#333'
