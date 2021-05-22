@@ -10,9 +10,9 @@ function stopWatch(options) {
   options = options || {};
   var color = options.color || 'lightblue';
   var backgroundColor = options.backgroundColor || 'black';
-  var display = document.getElementsByClassName('display')[0];
-  display.style.color = color;
-  display.style.backgroundColor = backgroundColor;
+  var displayElm = document.getElementsByClassName('display')[0];
+  displayElm.style.color = color;
+  displayElm.style.backgroundColor = backgroundColor;
 
   var logElm = document.querySelector('.log');
   var timer = null;
@@ -21,11 +21,11 @@ function stopWatch(options) {
   startButton.addEventListener('click', function(){
     if(timer == null) { 
       var seconds = 0;
-      display.innerText = seconds;
+      displayElm.innerText = seconds;
   
       timer = setInterval(function(){
         seconds++;
-        display.innerText = seconds;
+        displayElm.innerText = seconds;
       }, 1000);
 
       addMessage('開始');
