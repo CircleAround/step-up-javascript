@@ -1,3 +1,7 @@
+/*
+eslint no-unused-vars: 0
+*/
+
 function wait(sec) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
