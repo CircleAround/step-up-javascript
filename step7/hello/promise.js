@@ -1,3 +1,6 @@
+/* 
+eslint no-inner-declarations: 0 no-unused-vars: 0
+*/
 {
   function fetchHello() {
     const promise = fetch('./hello.json');
