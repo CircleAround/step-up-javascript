@@ -6,11 +6,11 @@ function createClosure() {
     // valueはこの関数の外ではあるが関数と同じスコープにいるので束縛する
     console.log(value);
   }
-  return myClosure;
+  return myClosure; // [2]
 }
 
-const closure = createClosure();
-closure(); // [2]
+const closure = createClosure(); // [3]
+closure(); // [4]
 
 // カプセル化が不十分な例 ///////////////////
 function createCounterObject() {

@@ -1,24 +1,28 @@
+/*
+eslint no-unused-vars: 0, no-undef: 0, no-constant-condition: 0
+*/
+
 console.log('> ブロックスコープのサンプル'); 
 function blockScope() {
 
   // 下のif文はロジックとしての意味は無いのですが
-  // myFuncVar1の変数の性質を確認する為のブロックを入れる為のコードです。
+  // myBlockVar1の変数の性質を確認する為のブロックを入れる為のコードです。
   // 続く関数スコープの話と一緒に理解してください。  
   if(true) {
-    const myFuncVar1 = 'myFuncVar1-true'; // これがブロックスコープの変数です
-    console.log(myFuncVar1);  
+    const myBlockVar1 = 'myBlockVar1-true'; // これがブロックスコープの変数です
+    console.log(myBlockVar1);  
   } else {
-    const myFuncVar1 = 'myFuncVar1-false'; // これがブロックスコープの変数です
-    console.log(myFuncVar1);  
+    const myBlockVar1 = 'myBlockVar1-false'; // これがブロックスコープの変数です
+    console.log(myBlockVar1);  
   }
 
   // ブロックは意図的に書くこともできます
   {
-    const myFuncVar2 = 'myFuncVar2'; // これがブロックスコープの変数です
-    console.log(myFuncVar2);  
+    const myBlockVar2 = 'myBlockVar2'; // これがブロックスコープの変数です
+    console.log(myBlockVar2);  
   }
 
-  // console.log(myFuncVar2); // エラー: ブロックの外なので利用できません
+  // console.log(myBlockVar2); // エラー: ブロックの外なので利用できません
 }
 
 blockScope();
@@ -61,33 +65,33 @@ console.log(window.myGlobalVar2);
 console.log('> 変数の巻き上げのサンプル');
 
 function funcHoisting() {
-  var myFuncVar1 = 'myFuncVar1'; // [1]
-  console.log(myFuncVar1);
+  var myHoistingVar1 = 'myHoistingVar1'; // [1]
+  console.log(myHoistingVar1);
 
   if(true) {
-    var myFuncVar1 = '変更！'; // [2]
-    console.log(myFuncVar1);
+    var myHoistingVar1 = '変更！'; // [2]
+    console.log(myHoistingVar1);
   }
 
-  console.log(myFuncVar1); // [3] => "変更！"
+  console.log(myHoistingVar1); // [3] => "変更！"
 }
 
 funcHoisting();
 
 
 function blockHoisting() {
-  let myFuncVar1 = 'myFuncVar1'; // [1]
-  console.log(myFuncVar1);
+  let myHoistingVar1 = 'myHoistingVar1'; // [1]
+  console.log(myHoistingVar1);
 
   if(true) {
-    let myFuncVar1 = '変更！'; // [2]
-    console.log(myFuncVar1);
+    let myHoistingVar1 = '変更！'; // [2]
+    console.log(myHoistingVar1);
   }
 
   // varの時には変更されましたが、ブロック変数なので影響を受けません
-  console.log(myFuncVar1); // [3] => "myFuncVar1"
+  console.log(myHoistingVar1); // [3] => "myHoistingVar1"
 
-  // let myFuncVar1 = '重複'; // [4] エラー: 同じスコープ内には同名の変数は作れません
+  // let myHoistingVar1 = '重複'; // [4] エラー: 同じスコープ内には同名の変数は作れません
 }
 
 blockHoisting();

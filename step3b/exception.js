@@ -19,7 +19,7 @@ class InputError extends Error {}
 function share(input) {
   const value = parseInt(input);
   if(!Number.isInteger(value)) {
-    throw new InputError('入力値が不正です');
+    throw new InputError('入力値が不正です'); // [1]
   }
   if(value < 0) {
     throw new InputError('整数で入力してください');
@@ -29,7 +29,7 @@ function share(input) {
 
 function divide(lhv, rhv) {
   if(rhv === 0) {
-    throw new Error('0では演算できません');
+    throw new Error('0では演算できません'); // [2]
   }
   return lhv / rhv;
 }

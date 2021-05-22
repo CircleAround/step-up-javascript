@@ -42,9 +42,9 @@ obj2.test = obj1.test; // obj1の関数の参照をobj2に代入
 obj2.test(); // [1]
 
 
-console.log('> applyのサンプル');
+console.log('> callのサンプル');
 
-obj1.test.apply(obj2); // obj1.testを呼んでいますが、これのthisをobj2に差し替えて実行します
+obj1.test.call(obj2); // obj1.testを呼んでいますが、これのthisをobj2に差し替えて実行します
 
 
 // グローバルオブジェクト
@@ -136,7 +136,7 @@ console.log('> コンストラクタのサンプル');
 
 function MyClass2() {
   this.name = 'これはMyClass2です';
-  console.log(this);
+  console.log(this); // [1] 
 }
 
 MyClass2.prototype.test = function() { 
@@ -144,5 +144,5 @@ MyClass2.prototype.test = function() {
   console.log('test!'); 
 };
 
-const instance2 = new MyClass2(); // [1]
+const instance2 = new MyClass2(); // [2]
 instance2.test();
