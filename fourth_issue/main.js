@@ -37,7 +37,7 @@ async function updateCity() {
 async function createPrefOptionsHtml(prefs) {
   const optionStrs = [];
   for(let i = 0; prefs.length > i; i++) {
-    let pref = prefs[i];
+    const pref = prefs[i];
     optionStrs.push(`
       <option name="${pref.name}" value="${pref.code}">
         ${pref.name}
@@ -57,7 +57,7 @@ async function createPrefOptionsHtml(prefs) {
 function createCityOptionsHtml(cities) {
   const optionStrs = [];
   for(let i = 0; cities.length > i; i++) {
-    let city = cities[i];
+    const city = cities[i];
     optionStrs.push(`
       <option name="${city.name}" value="${city.code}">
         ${city.name}
