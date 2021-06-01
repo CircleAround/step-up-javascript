@@ -15,7 +15,6 @@ function stopWatch(options) {
   displayElm.style.color = color; // --- [2〜]
   displayElm.style.backgroundColor = backgroundColor; // --- [〜2]
 
-  var displayElm = document.getElementsByClassName('display')[0];
   var logElm = document.querySelector('.log');
   var timer = null;
 
