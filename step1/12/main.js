@@ -10,8 +10,8 @@ function stopWatch() {
   var displayElm = document.getElementsByClassName('display')[0];
   var logElm = document.querySelector('.log');
   var timer = null;
-  var startButton = document.getElementsByClassName('startButton')[0];
 
+  var startButton = document.getElementsByClassName('startButton')[0];
   startButton.addEventListener('click', function() {
     if (timer == null) {
       var seconds = 0;
