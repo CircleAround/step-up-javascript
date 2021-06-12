@@ -20,7 +20,7 @@ console.log(`typeof undefined: ${typeUndefined}`); // => typeof undefined: undef
 
 // Symbol シンボル
 const typeSymbol = typeof Symbol('test');
-console.log(`typeof Symbol('test'): ${typeSymbol}`); // => typeof true: symbol
+console.log(`typeof Symbol('test'): ${typeSymbol}`); // => typeof Symbol('test'): symbol
 
 // Null
 const typeNull = typeof null;
