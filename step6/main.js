@@ -49,7 +49,7 @@ async function createPrefOptionsHtml(prefs) {
   prefSelectorElm.innerHTML = optionStrs.join('\n');
 
   prefSelectorElm.addEventListener('change', async(event) => {
-    updateCity(event.target.value);
+    updateCity();
   });
 } 
 
