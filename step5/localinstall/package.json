@@ -1,0 +1,14 @@
+{
+  "name": "localinstall",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ms2sato",
+  "license": "ISC",
+  "dependencies": {
+    "ms": "^2.1.3"
+  }
+}
