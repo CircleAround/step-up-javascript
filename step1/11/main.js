@@ -12,7 +12,7 @@ var timer = null;
 
 var startButton = document.getElementsByClassName('startButton')[0];
 startButton.addEventListener('click', function() {
-  if (timer == null) {
+  if (timer === null) {
     var seconds = 0;
     timer = setInterval(function() {
       seconds++;
@@ -31,7 +31,7 @@ startButton.addEventListener('click', function() {
 
 var stopButton = document.getElementsByClassName('stopButton')[0];
 stopButton.addEventListener('click', function() {
-  if (timer != null) {
+  if (timer !== null) {
     clearInterval(timer);
     timer = null;
     

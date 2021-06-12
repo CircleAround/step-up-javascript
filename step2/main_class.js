@@ -18,7 +18,7 @@ class StopWatch {
     let timer = null;
     const startButton = document.getElementsByClassName('startButton')[0];
     startButton.addEventListener('click', () => {
-      if (timer == null) {
+      if (timer === null) {
         let seconds = 0;
         display.innerText = seconds;
 
@@ -33,7 +33,7 @@ class StopWatch {
 
     const stopButton = document.getElementsByClassName('stopButton')[0];
     stopButton.addEventListener('click', () => {
-      if (timer != null) {
+      if (timer !== null) {
         clearInterval(timer);
         timer = null;
 
