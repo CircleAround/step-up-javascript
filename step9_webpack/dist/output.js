@@ -6,14 +6,14 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-/******/ (() => { // webpackBootstrap
+/******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./input.js":
 /*!******************!*\
   !*** ./input.js ***!
   \******************/
-/***/ (() => {
+/***/ (function() {
 
 eval("function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nvar App = function App() {\n  _classCallCheck(this, App);\n\n  console.log('クラスを使ってるよ');\n};\n\nvar func = function func() {\n  console.log('アロー関数を使ってるよ');\n};\n\nnew App();\nfunc();\n\n//# sourceURL=webpack://step9_webpack/./input.js?");
 
