@@ -1,30 +1,30 @@
 const rootElm = document.getElementById('areaSelector');
 
-async function initAreaSelector() {
+async function initAreaSelector() { // --- [1〜]
   await updatePref();
   await updateCity();
-}
+} // --- [〜1]
 
 async function getPrefs() {
   const prefResponse = await fetch('./prefectures.json');
   return await prefResponse.json();
 }
 
-async function getCities(cityCode) {
-  const cityResponse = await fetch(`./cities/${cityCode}.json`);
+async function getCities(prefCode) { // --- [2〜]
+  const cityResponse = await fetch(`./cities/${prefCode}.json`);
   return await cityResponse.json();
-}
+} // ---[〜2]
 
 async function updatePref() {
   const prefs = await getPrefs();
   createPrefOptionsHtml(prefs);
-} 
+}
 
-async function updateCity() {
+async function updateCity() { // --- [3〜]
   const prefSelectorElm = rootElm.querySelector('.prefectures');
   const cities = await getCities(prefSelectorElm.value);
   createCityOptionsHtml(cities);
-}
+} // --- [〜3]
 
 async function createPrefOptionsHtml(prefs) {
   const optionStrs = [];
@@ -39,13 +39,9 @@ async function createPrefOptionsHtml(prefs) {
 
   const prefSelectorElm = rootElm.querySelector('.prefectures');
   prefSelectorElm.innerHTML = optionStrs.join('');
+}
 
-  prefSelectorElm.addEventListener('change', async(event) => {
-    updateCity();
-  });
-} 
-
-function createCityOptionsHtml(cities) {
+function createCityOptionsHtml(cities) { // --- [4〜]
   const optionStrs = [];
   for(let i = 0; cities.length > i; i++) {
     const city = cities[i];
@@ -58,6 +54,7 @@ function createCityOptionsHtml(cities) {
       
   const citySelectorElm = rootElm.querySelector('.cities');
   citySelectorElm.innerHTML = optionStrs.join('');
-}
+} // --- [〜4]
 
-initAreaSelector();
+// updatePref(); // --- [5] 削除
+initAreaSelector(); // --- [6]

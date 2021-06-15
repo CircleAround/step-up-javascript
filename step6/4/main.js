@@ -10,15 +10,15 @@ async function getPrefs() {
   return await prefResponse.json();
 }
 
-async function getCities(cityCode) {
-  const cityResponse = await fetch(`./cities/${cityCode}.json`);
+async function getCities(prefCode) {
+  const cityResponse = await fetch(`./cities/${prefCode}.json`);
   return await cityResponse.json();
 }
 
 async function updatePref() {
   const prefs = await getPrefs();
   createPrefOptionsHtml(prefs);
-} 
+}
 
 async function updateCity() {
   const prefSelectorElm = rootElm.querySelector('.prefectures');
@@ -37,13 +37,13 @@ async function createPrefOptionsHtml(prefs) {
     `);
   }
 
-  const prefSelectorElm = rootElm.querySelector('.prefectures');
+  const prefSelectorElm = rootElm.querySelector('.prefectures');  
   prefSelectorElm.innerHTML = optionStrs.join('');
 
-  prefSelectorElm.addEventListener('change', async(event) => {
+  prefSelectorElm.addEventListener('change', async(event) => { // --- [1〜]
     updateCity();
-  });
-} 
+  }); // --- [〜1]
+}
 
 function createCityOptionsHtml(cities) {
   const optionStrs = [];
