@@ -46,7 +46,7 @@ async function createPrefOptionsHtml(prefs) {
   }
 
   const prefSelectorElm = rootElm.querySelector('.prefectures');
-  prefSelectorElm.innerHTML = optionStrs.join('\n');
+  prefSelectorElm.innerHTML = optionStrs.join('');
 
   prefSelectorElm.addEventListener('change', async(event) => {
     updateCity();
@@ -66,7 +66,7 @@ function createCityOptionsHtml(cities) {
   }
       
   const citySelectorElm = rootElm.querySelector('.cities');
-  citySelectorElm.innerHTML = optionStrs.join('\n');
+  citySelectorElm.innerHTML = optionStrs.join('');
 }
 
 initAreaSelector();
