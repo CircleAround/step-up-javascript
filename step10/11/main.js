@@ -52,7 +52,7 @@ class WordQuiz {
 
     const html = `
       <select class="levelSelector">
-        ${optionStrs.join('\n')}
+        ${optionStrs.join('')}
       </select>
       <button class='startBtn'>スタート</button>
     `;
@@ -88,7 +88,7 @@ class WordQuiz {
     const html = ` 
       <p>${currentQuestion.word}</p>
       <div>
-        ${choiceStrs.join('\n')}
+        ${choiceStrs.join('')}
       </div>
       <div class="actions">
         <button class="nextBtn">解答する</button>

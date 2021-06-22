@@ -34,7 +34,7 @@ class WordQuiz {
 
     const html = `
       <select class="levelSelector">
-        ${optionStrs.join('\n')}
+        ${optionStrs.join('')}
       </select>
       <button class='startBtn'>スタート</button>
     `;

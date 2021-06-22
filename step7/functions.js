@@ -33,11 +33,11 @@ function createCounter() {
 var testValue = 'test'; // [1]
 (function(){ // [2]
   // この中の処理も順番に実行される。
-  var testValue = 'test1'; // [5]
+  var testValue = 'test1'; // [3]
   // ...
-})(); // [3]
+})(); // [4]
 
-console.log(testValue); // [4]
+console.log(testValue); // [5] => test
 
 // これは上記の即時関数とほぼ同じ動作です。
 // letやconstはブロックスコープなのでこれだけでOKです。
