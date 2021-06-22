@@ -29,20 +29,20 @@ for(var i = 0; i < fruitElms.length; i++) {
   console.log(fruitElm.textContent);
 }
 
-var fruitsObj = {
-  apple: 'りんご', // --- [1]
-  peach: 'もも',
-  'orange': 'みかん' // --- [2]
+var colorsObj = {
+  red: 'あか', // --- [1]
+  green: 'みどり',
+  'blue': 'あお' // --- [2]
 };
 
-console.log(fruitsObj);
+console.log(colorsObj);
 
-console.log(fruitsObj['apple']); // --- [3]
-console.log(fruitsObj.apple); // --- [4]
-console.log(fruitsObj.orange);
+console.log(colorsObj['red']); // --- [3]
+console.log(colorsObj.red); // --- [4]
+console.log(colorsObj.blue);
 
-fruitsObj['apple'] = 'アップル';
-console.log(fruitsObj.apple); // => アップル
+colorsObj['red'] = 'レッド';
+console.log(colorsObj.red); // => レッド
 
-fruitsObj.orange = 'オレンジ';
-console.log(fruitsObj.orange); // => オレンジ
+colorsObj.blue = 'ブルー';
+console.log(colorsObj.blue); // => ブルー
