@@ -31,7 +31,7 @@ console.log(str.toUpperCase()); // => TEST
 
     decorate() {
       console.log(`decorateが呼ばれました: ${this.name}`);
-      return `■■■ ${this.name} ■■■` // --- [3]
+      return `■■■ ${this.name} ■■■`; // --- [3]
     }
   }
 

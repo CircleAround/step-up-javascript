@@ -1,5 +1,7 @@
+/* eslint no-unused-vars: 0 */
+
 // 無名関数
-const testFunction = function () {
+const testFunction = function() {
   //...
 };
 
