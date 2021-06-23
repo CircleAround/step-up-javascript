@@ -34,7 +34,7 @@ class WordQuiz {
     this.gameStatus.level = levelStrs[0];
 
     const optionStrs = [];
-    for (let i = 0; levelStrs.length > i; i++) {
+    for (let i = 0; i < levelStrs.length; i++) {
       optionStrs.push(`<option value="${levelStrs[i]}" name="level">レベル${i + 1}</option>`);
     }
 
