@@ -30,7 +30,7 @@ class WordQuiz {
       <select class="levelSelector">
         ${optionStrs.join('')}
       </select>
-      <button class='startBtn'>スタート</button> // --- [1]
+      <button class="startBtn">スタート</button> // --- [1]
     `;
     const parentElm = document.createElement('div');
     parentElm.innerHTML = html;

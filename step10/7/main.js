@@ -30,7 +30,7 @@ class WordQuiz {
       <select class="levelSelector">
         ${optionStrs.join('')}
       </select>
-      <button class='startBtn'>スタート</button>
+      <button class="startBtn">スタート</button>
     `;
     const parentElm = document.createElement('div');
     parentElm.innerHTML = html;
@@ -47,7 +47,7 @@ class WordQuiz {
   displayQuestionView() {
     const html = `
       <p>ゲームを開始しました</p>
-      <button class='retireBtn'>ゲームを終了する</button> // ---[3]
+      <button class="retireBtn">ゲームを終了する</button> // ---[3]
     `;
 
     const parentElm = document.createElement('div');
