@@ -43,9 +43,9 @@ getJson('./user.json', function(err, user) { // [1]
       }
 
       console.log(`エントリとコメントを取得:${entry.name}`);
-      comments.forEach(function(comment){
+      for(const comment of comments) {
         console.log(`${comment.id}: ${comment.comment}`);
-      });
+      }
     });
   });
 

@@ -31,9 +31,9 @@ fetchJson('./user.json').then(function(user){
   return fetchJson(`./entries/${entry.id}/comments.json`);
 }).then(function(comments) {
   console.log(`エントリとコメントを取得:${entry.name}`);
-  comments.forEach(function(comment){
+  for (const comment of comments) {
     console.log(`${comment.id}: ${comment.comment}`);
-  });
+  }
 }).catch(function(err){
   alert(`通信に失敗しました: ${err.message}`);
 });
@@ -49,10 +49,9 @@ async function getComments() {
     const entry = entries[0];
     const comments = await fetchJson(`./entries/${entry.id}/comments.json`);
     console.log(`エントリとコメントを取得:${entry.name}`);
-    
-    comments.forEach(function(comment){
+    for(const comment of comments) {
       console.log(`${comment.id}: ${comment.comment}`);
-    });  
+    }
   } catch(err) {
     alert(`通信に失敗しました: ${err.message}`);
   }
