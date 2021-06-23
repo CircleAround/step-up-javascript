@@ -5,7 +5,7 @@ class WordQuiz {
     // ゲームのステータス
     this.gameStatus = {
       level: null, // 選択されたレベル
-      step: 1, // 現在表示している設問の番号
+      step: 1 // 現在表示している設問の番号
     };
   }
 

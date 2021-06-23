@@ -4,7 +4,7 @@ class WordQuiz {
 
     // ゲームのステータス
     this.gameStatus = { // --- [1〜]
-      level: null, // 選択されたレベル
+      level: null // 選択されたレベル
     }; // --- [〜1]
   }
 
