@@ -15,10 +15,9 @@ async function updatePref() { // --- [2〜]
   createPrefOptionsHtml(prefs);
 } // --- [〜2]
 
-async function createPrefOptionsHtml(prefs) { // --- [3〜]
+function createPrefOptionsHtml(prefs) { // --- [3〜]
   const optionStrs = [];
-  for(let i = 0; prefs.length > i; i++) {
-    const pref = prefs[i];
+  for(const pref of prefs) {
     optionStrs.push(`
       <option name="${pref.name}" value="${pref.code}">
         ${pref.name}
