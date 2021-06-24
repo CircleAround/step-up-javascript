@@ -17,6 +17,7 @@
     "comma-spacing": ["error", {"before": false, "after": true}],
     "comma-style": ["error", "last"],
     "consistent-this": ["error", "self"],
+    "for-direction": "error",
     "no-nested-ternary": "error",
     "no-spaced-func": "error",
     "object-curly-spacing": ["error", "never"],
