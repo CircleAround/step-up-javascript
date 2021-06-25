@@ -1,5 +1,5 @@
 function repeat(count, callback) {
-  for (let i = 0; i < count; ++i) {
+  for (let i = 0; i < count; i++) {
     callback(i);
   }
 }
