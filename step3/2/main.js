@@ -16,7 +16,6 @@ class PhotoViewer {
   }
 }
 
-
 const images = [
   'https://fakeimg.pl/250x150/81DAF5',
   'https://fakeimg.pl/250x150/F781F3',
