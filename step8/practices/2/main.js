@@ -7,17 +7,17 @@ async function initAreaSelector() {
   // getCitiesの扱いが冗長ですが、下記のPromise.allが書けることが主題です。
   // 通信はこの時に行い、ドロップダウンの変更時には起きません。
   const [prefs, ...cities] = await Promise.all([
-    getPrefs(), getCities('001'), getCities('002'), getCities('003'), 
-  ])
+    getPrefs(), getCities('001'), getCities('002'), getCities('003')
+  ]);
 
   _prefs = prefs;
-  _cities = {}
-  _cities['001'] = cities[0]
-  _cities['002'] = cities[1]
-  _cities['003'] = cities[2]
+  _cities = {};
+  _cities['001'] = cities[0];
+  _cities['002'] = cities[1];
+  _cities['003'] = cities[2];
 
-  await updatePref()
-  await updateCity()
+  await updatePref();
+  await updateCity();
 }
 
 async function getPrefs() {
@@ -36,7 +36,7 @@ function updatePref() {
 
 function updateCity() {
   const prefSelectorElm = rootElm.querySelector('.prefectures');
-  const cities = _cities[prefSelectorElm.value]
+  const cities = _cities[prefSelectorElm.value];
   createCityOptionsHtml(cities);
 }
 
@@ -53,7 +53,7 @@ function createPrefOptionsHtml(prefs) {
   const prefSelectorElm = rootElm.querySelector('.prefectures');
   prefSelectorElm.innerHTML = optionStrs.join('');
 
-  prefSelectorElm.addEventListener('change', (event) => {
+  prefSelectorElm.addEventListener('change', () => {
     updateCity();
   });
 } 

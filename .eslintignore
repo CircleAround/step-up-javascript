@@ -1,4 +1,7 @@
+node_modules
 /step9/output.js
 /step9_webpack/dist/*
 /step10_webpack/dist/*
+/step9_webpack/node_modules/*
+/step10_webpack/node_modules/*
 webpack.config.js

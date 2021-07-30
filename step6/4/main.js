@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 const rootElm = document.getElementById('areaSelector');
 
 async function initAreaSelector() {

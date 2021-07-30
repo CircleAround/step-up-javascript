@@ -1,0 +1,30 @@
+{
+  "name": "step-up-javascript",
+  "version": "1.0.0",
+  "description": "Sample codes of Step up JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "build": "./build.js",
+    "lint": "npx eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CircleAround/step-up-javascript.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "sample",
+    "books"
+  ],
+  "author": "ms2sato",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CircleAround/step-up-javascript/issues"
+  },
+  "homepage": "https://github.com/CircleAround/step-up-javascript#readme",
+  "dependencies": {
+    "eslint": "^7.31.0",
+    "marked": "^2.1.3"
+  }
+}

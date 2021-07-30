@@ -1,4 +1,6 @@
 .idea
 .DS_Store
-step9_webpack/node_modules/
-step10_webpack/node_modules/
+
+node_modules
+
+/index.html

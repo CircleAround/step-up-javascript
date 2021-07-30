@@ -3,7 +3,7 @@ const rootElm = document.getElementById('areaSelector');
 function initAreaSelector() {
   updatePref().then(() => {
     updateCity();
-  })
+  });
 }
 
 function getPrefs() {
@@ -44,7 +44,7 @@ function createPrefOptionsHtml(prefs) {
   const prefSelectorElm = rootElm.querySelector('.prefectures');
   prefSelectorElm.innerHTML = optionStrs.join('');
 
-  prefSelectorElm.addEventListener('change', (event) => {
+  prefSelectorElm.addEventListener('change', () => {
     updateCity();
   });
 } 

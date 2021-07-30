@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: 0 */
+/* eslint no-inner-declarations: 0 */
 console.log('プリミティブ型');
 let str1 = 'Hello';
 const str2 = str1;
@@ -50,7 +52,7 @@ console.log('プリミティブ型を関数に渡した時');
 }
 
 {
-  const strs = ['あ', 'い', 'う']
+  const strs = ['あ', 'い', 'う'];
   const aiu = strs.join('');
   console.log(aiu);
 }
