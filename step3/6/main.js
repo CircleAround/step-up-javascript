@@ -34,11 +34,11 @@ class PhotoViewer {
   }
 
   setTimer() {
-    if (this.intervalKey) {
-      clearInterval(this.intervalKey);
+    if (this.timerKey) {
+      clearTimeout(this.timerKey);
     }
-
-    this.intervalKey = setInterval(() => {
+    
+    this.timerKey = setTimeout(() => {
       this.next();
     }, 3000);
   }
