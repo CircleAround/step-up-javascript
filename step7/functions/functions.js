@@ -7,7 +7,7 @@ const testFunction = function() {
 
 testFunction();
 
-// アロー関数も無名関数の一種です
+// アロー関数は無名関数のように扱えます
 const testFunction2 = () => {
   //...
 };
