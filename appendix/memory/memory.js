@@ -4,6 +4,7 @@ console.log('プリミティブ型');
 let str1 = 'Hello';
 const str2 = str1;
 str1 = str1.concat('World');
+console.log(str2); // => Hello
 
 console.log('オブジェクト型');
 const custom1 = {message: "Hello"};
@@ -22,6 +23,7 @@ console.log('プリミティブ型を関数に渡した時');
   console.log(str1); // => 'Hello' // 変更はされない
 }
 
+console.log('オブジェクト型を関数に渡した時');
 {
   function concatWorld(custom) {
     custom.message = custom.message.concat('World');
@@ -32,16 +34,7 @@ console.log('プリミティブ型を関数に渡した時');
   console.log(custom1); // => {message: "HelloWorld"} 
 }
 
-{
-  function concatWorld2(str) {
-    str = str.concat('World'); // strが 'HelloWorld'になりそうに思うかもしれない
-  }
-
-  const custom1 = {message: "Hello"};
-  concatWorld2(custom1.message);
-  console.log(custom1); // => {message: "Hello"}
-}
-
+console.log('文字列の連結');
 {
   const strs = ['あ', 'い', 'う'];
   let aiu = '';
