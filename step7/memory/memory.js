@@ -34,18 +34,3 @@ console.log('オブジェクト型を関数に渡した時');
   console.log(custom1); // => {message: "HelloWorld"} 
 }
 
-console.log('文字列の連結');
-{
-  const strs = ['あ', 'い', 'う'];
-  let aiu = '';
-  for(const str of strs) {
-    aiu = aiu.concat(str);
-  }
-  console.log(aiu);
-}
-
-{
-  const strs = ['あ', 'い', 'う'];
-  const aiu = strs.join('');
-  console.log(aiu);
-}
