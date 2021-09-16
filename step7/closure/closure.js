@@ -27,12 +27,12 @@ function createCounterObject() {
   };
 }
 
-const couterObj = createCounterObject();
-couterObj.up();
-couterObj.up();
-couterObj.value = 10; // [1]
-couterObj.down();
-console.log(couterObj.value); // => 9
+const counterObj = createCounterObject();
+counterObj.up();
+counterObj.up();
+counterObj.value = 10; // [1]
+counterObj.down();
+console.log(counterObj.value); // => 9
 
 
 // Closureを利用して変数をカプセル化する ///////////////////
