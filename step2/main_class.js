@@ -22,7 +22,7 @@ class StopWatch {
         let seconds = 0;
         display.innerText = seconds;
 
-        timer = setInterval(function() {
+        timer = setInterval(() => {
           seconds++;
           display.innerText = seconds;
         }, 1000);
