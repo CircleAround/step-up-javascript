@@ -30,10 +30,10 @@ class PhotoViewer {
       </div>
     `;
 
-    this.setTimer();
+    this.startTimer();
   }
 
-  setTimer() {
+  startTimer() {
     if (this.timerKey) {
       clearTimeout(this.timerKey);
     }

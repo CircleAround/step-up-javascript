@@ -28,10 +28,10 @@ class PhotoViewer {
         <img src="${this.images[this.currentIndex]}" />
       </div>
     `;
-    this.setTimer(); // --- [2]
+    this.startTimer(); // --- [2]
   }
 
-  setTimer() {
+  startTimer() {
     if (this.timerKey) {
       clearTimeout(this.timerKey); // --- [3]
     }
