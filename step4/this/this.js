@@ -60,21 +60,6 @@ function globalTest() {
 // オブジェクトに所有されていないのでthisはwindowです
 globalTest();
 
-// オブジェクトに所有されている関数の中で、所有されていない関数を使うケース
-const nestedSample = {
-  nested: function() {
-    // このtestのthisもグローバルオブジェクトです
-    // オブジェクトに所有されていない為です
-    function test() {
-      console.log(this === window); // => true
-    }
-
-    test();
-  }
-};
-
-nestedSample.nested();
-
 /////////////
 console.log('> アロー関数のサンプル');
 
@@ -84,17 +69,17 @@ const objArrow = {
     console.log('testの中です');
     console.log(this);
 
-    const arrow = () => {
+    const arrow = () => { // --- [1〜]
       console.log('arrowの中です');
       console.log(this); // => {name: "これはobjArrowです", test: ƒ}
       console.log(this === objArrow); // => true
-    };
+    }; // --- [〜1]
 
-    const normal = function() {
+    const normal = function() { // --- [2〜]
       console.log('normalの中です');
       console.log(this); // => Window
       console.log(this === objArrow); // => false
-    };
+    }; // --- [〜2]
 
     arrow();
     normal();
@@ -103,7 +88,7 @@ const objArrow = {
 
 console.log(objArrow); // [3] => {name: "これはobjArrowです", test: ƒ}
 
-objArrow.test(); // [4] 
+objArrow.test();
 
 
 // アロー関数が無かった頃の書き方
