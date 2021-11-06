@@ -35,8 +35,8 @@ console.log(str.toUpperCase()); // => TEST
     }
   }
 
-  const decorator = new TextDecorator('ステップアップ！'); // => コンストラクタが呼ばれました --- [1]
-  console.log(decorator.name); // => ステップアップ！ --- [2]
-  const str = decorator.decorate(); // => decorateが呼ばれました: ステップアップ！
-  console.log(str); // => ■■■ ステップアップ！ ■■■
+  const td = new TextDecorator('JS！'); // => コンストラクタが呼ばれました --- [4]
+  console.log(td.name); // => JS！ --- [5]
+  const str = td.decorate(); // => decorateが呼ばれました: JS！ --- [6]
+  console.log(str); // => ■■■ JS！ ■■■
 }
