@@ -76,14 +76,17 @@ class WordQuiz {
     this.gameStatus.intervalKey = null; // setIntervalのキー // ---[3]
   }
 
-  setTimer() { // ---[4]
+  setTimer() { // ---[4〜]
+    if(this.gameStatus.intervalKey !== null) { 
+      throw new Error('まだタイマーが動いています');
+    }
     this.gameStatus.timeLimit = 10;
 
     this.gameStatus.intervalKey = setInterval(() => {
       this.gameStatus.timeLimit--;
       console.log(`解答時間は残り${this.gameStatus.timeLimit}秒です`);
     }, 1000);
-  }
+  } // ---[〜4]
 
   clearTimer() {
     clearInterval(this.gameStatus.intervalKey);

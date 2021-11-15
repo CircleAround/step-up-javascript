@@ -77,6 +77,9 @@ class WordQuiz {
   }
 
   setTimer() {
+    if(this.gameStatus.intervalKey !== null) { 
+      throw new Error('まだタイマーが動いています');
+    }
     this.gameStatus.timeLimit = 10;
 
     this.gameStatus.intervalKey = setInterval(() => {
