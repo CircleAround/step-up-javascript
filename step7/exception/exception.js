@@ -22,7 +22,7 @@ function share(input) {
     throw new InputError('入力値が不正です'); // [1]
   }
   if(value < 0) {
-    throw new InputError('整数で入力してください');
+    throw new InputError('正の数で入力してください');
   }
   return divide(100, value);
 }
@@ -40,7 +40,7 @@ try {
   alert(`1人分は${result}円です`);
 } catch(e) {
   if(e instanceof InputError) {
-    alert('入力値は整数を入れてください。リロードします');
+    alert('入力値は正の整数を入れてください。リロードします');
     location.reload();
   } else if(e instanceof Error) {
     console.error(e);
