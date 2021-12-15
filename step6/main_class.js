@@ -36,7 +36,7 @@ class AreaSelector {
     const prefSelectorElm = this.rootElm.querySelector('.prefectures');
     prefSelectorElm.innerHTML = this.toOptionsHtml(this.prefectures);
 
-    prefSelectorElm.addEventListener('change', async(event) => {
+    prefSelectorElm.addEventListener('change', (event) => {
       this.prefCode = event.target.value;
       this.updateCity();
     });
