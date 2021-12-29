@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>Step7</title>
+  </head>
+  <body>
+    <h1>下記の操作を試してみてください</h1>
+    <p>
+      「同期処理ボタンを押してすぐに処理2ボタンを押す」ことと「非同期処理ボタンを押してすぐ処理2ボタンを押す」という操作を試してみてください。<br>
+      ※同期処理ボタンで時間がかかり過ぎてしまう人は一度ブラウザを終了して、ソースコードのfor文の回数を調整してください。
+      <br>
+      非同期処理で快適に他の操作を処理してくれることがわかるでしょう。
+    </p>
+    <p>
+      <button id="sync">同期処理</button>
+      <button id="async">非同期処理</button>
+    </p>
+    <div>
+      <button id="doit">処理2</button>
+    </div>
+    <div id="output"></div>
+    <script src="./blocked.js"></script>
+  </body>
+</html>
