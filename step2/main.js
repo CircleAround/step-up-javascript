@@ -3,7 +3,8 @@ function stopWatch(options = {}) {
     const messageElm = document.createElement('div');
     const now = new Date();
     messageElm.innerText = `${now.getHours()}時${now.getMinutes()}分${now.getSeconds()}秒 ${message}`;
-    messageElm.classList = ['message'];
+    // @see https://books.circlearound.co.jp/step-up-javascript/errata.html#errata-class-list
+    messageElm.classList.add('message');
     logElm.appendChild(messageElm);
   };
 
