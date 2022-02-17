@@ -2,7 +2,8 @@ function addMessage(message) {
   var messageElm = document.createElement('div');
   var now = new Date(); // --- [1]
   messageElm.innerText = now.getHours() + '時' + now.getMinutes() + '分' + now.getSeconds() + '秒 ' + message; // --- [2]
-  messageElm.classList = ['message']; // --- [3]
+  // @see https://books.circlearound.co.jp/step-up-javascript/errata.html#errata-class-list
+  messageElm.classList.add('message'); // --- [3]
   logElm.appendChild(messageElm);
 }
 
